@@ -1,6 +1,9 @@
 package entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+
+import dao.VeDao;
 
 public class Ve {
 	private int maVe;
@@ -24,6 +27,20 @@ public class Ve {
 		this.khachHang = khachHang;
 		this.nhanVien = nhanVien;
 	}
+	
+	public Ve(int maVe, int soNguoiLon, int soTreEm, int trangThai, Date ngayDat, Tour tour, KhachHang khachHang,
+			NhanVien nhanVien) {
+		super();
+		this.maVe = maVe;
+		this.soNguoiLon = soNguoiLon;
+		this.soTreEm = soTreEm;
+		this.trangThai = trangThai;
+		this.ngayDat = ngayDat;
+		this.tour = tour;
+		this.khachHang = khachHang;
+		this.nhanVien = nhanVien;
+	}
+
 	public Ve(int maVe, int soNguoiLon, int soTreEm, int trangThai) {
 		super();
 		this.maVe = maVe;
@@ -93,6 +110,19 @@ public class Ve {
 	
 	
 	
+	private ArrayList<Tour> getDSTour() {
+		VeDao veDao = new VeDao();		
+		return veDao.getTuorTheoMaVe(this.maVe);
+	}
 	
+	public double TongTien() {
+		ArrayList<Tour> dsTours = getDSTour();
+		double tong = 0;
+		for (Tour tour : dsTours) {
+			tong = (this.soNguoiLon*tour.getGia()+this.soTreEm*tour.getGiaTreEm()) ;
+			break;
+		}
+		return tong;
+	}
 	
 }
