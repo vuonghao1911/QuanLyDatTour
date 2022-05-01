@@ -303,7 +303,7 @@ public class GDThongKe extends JFrame implements ActionListener, KeyListener, Mo
 			lblNewLabel_2_2.setForeground(new Color(24, 140, 166));
 			lblNewLabel_2_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			
-			cboThang = new JComboBox<>();
+			cboThang = new JComboBox<>(cboString);
 			cboThang.setBackground(new Color(241, 233, 233));
 			cboThang.setBounds(625, 10, 137, 29);
 			
