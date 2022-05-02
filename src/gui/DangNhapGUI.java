@@ -23,7 +23,7 @@ import javax.swing.JTextField;
 import dao.TaiKhoanDao;
 import entity.TaiKhoan;
 
-public class DangNhapGUI extends JFrame {
+public class DangNhapGUI extends JFrame  implements MouseListener, ActionListener{
 
 	private JTextField txtDangNhap;
 	private JPasswordField txtMatKhau;

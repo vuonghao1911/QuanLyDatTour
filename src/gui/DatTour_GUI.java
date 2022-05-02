@@ -60,11 +60,11 @@ public class DatTour_GUI extends JFrame {
 //	 * Create the frame.
 //	 */
 	public DatTour_GUI() {
-//		try {
-//			ConnectDB.getInstance().connect();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
+		try {
+			ConnectDB.getInstance().connect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1060, 780);
 		contentPane = new JPanel();
@@ -236,13 +236,13 @@ public class DatTour_GUI extends JFrame {
 		String[] header = "Mã tour;Tên tour;Ngày đi;Địa điểm;Thời gian;Giá người lớn;Giá trẻ em".split(";");
 		tableModel = new DefaultTableModel(header,0);
 		
-//		tour_DAO = new Tour_DAO();
-//		danhSachTour = tour_DAO.getAllTour();
-//		for(Tour tour : danhSachTour) {
-//			tableModel.addRow(new Object[] {tour.getMaTour(),tour.getTenTour(),tour.getNgayKhoiHanh(),tour.getDiemDen(),tour.getThoiGian(),
-//					tour.getGia(),tour.getGiaTreEm()
-//			});
-//		}
+		tour_DAO = new Tour_DAO();
+		danhSachTour = tour_DAO.getAllTour();
+		for(Tour tour : danhSachTour) {
+			tableModel.addRow(new Object[] {tour.getMaTour(),tour.getTenTour(),tour.getNgayKhoiHanh(),tour.getDiemDen(),tour.getThoiGian(),
+					tour.getGia(),tour.getGiaTreEm()
+			});
+		}
 		JScrollPane tableDanhSach = new JScrollPane(table = new JTable(tableModel));
 		tableDanhSach.setBounds(413, 186, 567, 293);
 		contentPane.add(tableDanhSach);
@@ -250,7 +250,7 @@ public class DatTour_GUI extends JFrame {
 		
 	}
 	
-//	public static void main(String[] args) {
-//		new DatTour_GUI().setVisible(true);
-//	}
+	public static void main(String[] args) {
+		new DatTour_GUI().setVisible(true);
+	}
 }

@@ -23,7 +23,7 @@ public class Tour_DAO {
 				int maTour = rs.getInt("maTour");
 				String tenTour = rs.getString("tenTour");
 				Date ngayKhoiHanh = rs.getDate("ngayKhoiHanh");
-				String diemDen = rs.getString("diaDiem");
+				String diemDen = rs.getString("diemDen");
 				String thoiGian = rs.getString("thoiGian");
 				Double gia = rs.getDouble("gia");
 				Double giaTreEm = rs.getDouble("giaTreEm");

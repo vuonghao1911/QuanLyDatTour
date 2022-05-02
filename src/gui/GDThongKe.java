@@ -325,6 +325,8 @@ public class GDThongKe extends JFrame implements ActionListener, KeyListener, Mo
 		txtTenNV.addKeyListener(this);
 		btnTim.addActionListener(this);
 		table.addMouseListener(this);
+		txtTenKH.addMouseListener(this);
+		txtTenNV.addMouseListener(this);
 		
 	
 		DocDuLieuVaoTable(veDao.getAllVes());
@@ -455,10 +457,24 @@ public class GDThongKe extends JFrame implements ActionListener, KeyListener, Mo
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		Object object = e.getSource();
+		if (object == table) {
+			
+		
+		
 		int row = table.getSelectedRow();
 		int ma = Integer.parseInt(table.getValueAt(row, 0).toString());
 		ThongTinChiTiet thongTinChiTiet = new ThongTinChiTiet(veDao.getVeByMaVe(ma));
 		thongTinChiTiet.setVisible(true);
+		}
+		if (object==txtTenKH||object==txtTenNV) {
+			txtTenKH.setText("");
+			txtTenNV.setText("");
+			model.getDataVector().removeAllElements();
+			model.fireTableDataChanged();
+			DocDuLieuVaoTable(veDao.getAllVes());
+			RenderDataForLabel(veDao.getAllVes());
+		}
 		
 	}
 
