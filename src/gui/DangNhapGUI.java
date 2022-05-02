@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Checkbox;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -11,21 +12,25 @@ import java.awt.event.MouseListener;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import dao.TaiKhoanDao;
 import entity.TaiKhoan;
 
-public class DangNhapGUI extends JFrame implements ActionListener, MouseListener {
-	
-	private JTextField txtDangNhap, txtMatKhau;
+public class DangNhapGUI extends JFrame {
+
+	private JTextField txtDangNhap;
+	private JPasswordField txtMatKhau;
 	private JLabel lblDangNhap, lblMatKhau, lblTieuDe;
 	private JButton jbtDangNhap, jbtHuy;
-	
+	private JCheckBox htmk;
+
 	public DangNhapGUI () {
 		setTitle("QUANLYTOUR");
 		setSize(400, 400);
@@ -59,12 +64,38 @@ public class DangNhapGUI extends JFrame implements ActionListener, MouseListener
 //		Mật khẩu
 		JPanel p2 = new JPanel();
         JLabel lblMatKhau = new JLabel("Mật khẩu: ");
-        txtMatKhau = new JTextField(20);
+        txtMatKhau = new JPasswordField(20);
         p2.add(lblMatKhau);
         p2.add(txtMatKhau);
         pnDangNhap.add(p2);
 
         lblMatKhau.setPreferredSize(lblDangNhap.getPreferredSize());
+        
+        JPanel pncheck = new JPanel();
+        pncheck.setLayout(new FlowLayout());
+        htmk = new JCheckBox("Hiển thị mật khẩu");
+        pncheck.add(htmk);
+pnDangNhap.add(pncheck);
+        
+        htmk.addActionListener(new ActionListener(){
+        public void actionPerformed(ActionEvent e) {
+			if(txtMatKhau.getText().equals("Mật khẩu")) 
+			{
+				txtMatKhau.setEchoChar((char)0);	
+				htmk.setSelected(false);
+				return ;
+			}
+			
+			if(htmk.isSelected()) 
+			{
+	        	txtMatKhau.setEchoChar((char)0);
+			}else {
+				txtMatKhau.setEchoChar('*');
+			}
+        }
+        });
+        
+	
         
 //		Button
         JPanel pnNut = new JPanel();
@@ -116,13 +147,13 @@ public class DangNhapGUI extends JFrame implements ActionListener, MouseListener
         
         pnDangNhap.add(pnNut);
         
-		add(pnDangNhap);
+    	add(pnDangNhap);
 		
-	}
+}
 	
-//	public static void main(String[] args) {
-//		new DangNhapGUI().setVisible(true);
-//	}
+	public static void main(String[] args) {
+		new DangNhapGUI().setVisible(true);
+	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
