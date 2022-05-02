@@ -34,6 +34,20 @@ public class Tour {
 		super();
 		this.maTour = maTour;
 	}
+	
+	
+	public Tour(int maTour, String tenTour, Double gia, Double giaTreEm) {
+		super();
+		this.maTour = maTour;
+		this.tenTour = tenTour;
+		this.gia = gia;
+		this.giaTreEm = giaTreEm;
+	}
+	public Tour(int maTour, String tenTour) {
+		super();
+		this.maTour = maTour;
+		this.tenTour = tenTour;
+	}
 	public int getMaTour() {
 		return maTour;
 	}

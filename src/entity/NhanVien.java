@@ -23,6 +23,13 @@ public class NhanVien {
 		this.ngaySinh = ngaySinh;
 		this.sdt = sdt;
 	}
+	
+	public NhanVien(int maNV, String tenNV) {
+		super();
+		this.maNV = maNV;
+		this.tenNV = tenNV;
+	}
+
 	public NhanVien(int maNV) {
 		super();
 		this.maNV = maNV;

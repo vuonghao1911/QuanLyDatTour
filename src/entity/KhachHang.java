@@ -18,6 +18,12 @@ public class KhachHang {
 		super();
 		this.maKH = maKH;
 	}
+	
+	public KhachHang(int maKH, String tenKH) {
+		super();
+		this.maKH = maKH;
+		this.tenKH = tenKH;
+	}
 	public int getMaKH() {
 		return maKH;
 	}
