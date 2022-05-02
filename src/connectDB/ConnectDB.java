@@ -21,7 +21,7 @@ public class ConnectDB {
 	public void connect() throws SQLException {
 		String url ="jdbc:sqlserver://localhost:1433;databaseName=QLTour";
 		String user ="sa";
-		String password="1234";
+		String password="sa";
 		con = DriverManager.getConnection(url, user, password);
 	}
 	public void disconnect() {
@@ -38,13 +38,14 @@ public class ConnectDB {
 		return con;
 	}
 	
+	@SuppressWarnings("unused")
 	public static void main(String[] args)   {
 		// TODO Auto-generated method stub
 		
 		
-			String url ="jdbc:sqlserver://localhost:1433;databaseName=QLTN";
+			String url ="jdbc:sqlserver://localhost:1433;databaseName=qltour";
 			String user ="sa";
-			String password="1234";
+			String password="sa";
 			//Class.forName("com.microsoft.sqlserver.jdbc.SQLSeverDriver");
 			Connection con;
 			try {
@@ -55,8 +56,7 @@ public class ConnectDB {
 				e.printStackTrace();
 				System.out.println("that bai");
 			}
-			
-		
+
 
 }
 }
