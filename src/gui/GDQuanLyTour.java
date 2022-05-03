@@ -253,7 +253,7 @@ public class GDQuanLyTour extends JFrame implements ActionListener, MouseListene
 //		}
 		
 		@Override
-		public void actionPerformed1(ActionEvent e) {
+		public void actionPerformed(ActionEvent e) {
 			Object object = e.getSource();
 			Tour_DAO tourDAO = new Tour_DAO();
 			List<Tour> dstour = tourDAO.getAllTour();
@@ -265,20 +265,20 @@ public class GDQuanLyTour extends JFrame implements ActionListener, MouseListene
 					JOptionPane.showMessageDialog(null, "Không tìm thấy thông tin về tour !");
 				} else {
 					modelTour.getDataVector().removeAllElements();
-					modelTour.addRow(new Object[] { String.valueOf( tour.getMaTour(), tour.getTenTour(), tour.getDiemDen(), tour.getDiemXuatPhat(),
-							tour.getThoiGian(), tour.getMoTa(), tour.getNgayKhoiHanh(), tour.getGia(), tour.getGiaTreEm(), tour.getSoLuong())});
+					modelTour.addRow(new Object[] {  tour.getMaTour(), tour.getTenTour(), tour.getDiemDen(), tour.getDiemXuatPhat(),
+							tour.getThoiGian(), tour.getMoTa(), tour.getNgayKhoiHanh(), tour.getGia(), tour.getGiaTreEm(), tour.getSoLuong()});
 				}
 			} else if (object.equals(bttThem)) {
 				if (dstour.contains(new NhanVien(Integer.parseInt(txtMaTour.getText())))) {
 					JOptionPane.showMessageDialog(null, "Mã tour Đã Tồn Tại!");
-				} else  {
-					try {
-						Tour tour = new Tour(Integer(txtMaTour.getText(), txtTenTour.getText(),txtDiemDen.getText(), txtThoiGian.getText(), txtMoTa.getText(), txtNKH.getText(), txtGia.getText(), txtGiaTE.getText(), txtSoLuong.getText()));
-						tourDAO.them(tour);
-						modelTour.addRow(new Object[] { String(tour.getMaTour(), tour.getTenTour(), tour.getDiemDen(), tour.getDiemXuatPhat(),
-								tour.getThoiGian(), tour.getMoTa(), tour.getNgayKhoiHanh(), tour.getGia(), tour.getGiaTreEm(), tour.getSoLuong() });
-						JOptionPane.showMessageDialog(null, "Thêm Tour Thành Công!");
-					} catch (SQLException e1) 
+//				} else  {
+//					try {
+//						Tour tour = new Tour(Integer(txtMaTour.getText(), txtTenTour.getText(),txtDiemDen.getText(), txtThoiGian.getText(), txtMoTa.getText(), txtNKH.getText(), txtGia.getText(), txtGiaTE.getText(), txtSoLuong.getText()));
+//						tourDAO.them(tour);
+//						modelTour.addRow(new Object[] { String(tour.getMaTour(), tour.getTenTour(), tour.getDiemDen(), tour.getDiemXuatPhat(),
+//								tour.getThoiGian(), tour.getMoTa(), tour.getNgayKhoiHanh(), tour.getGia(), tour.getGiaTreEm(), tour.getSoLuong() });
+//						JOptionPane.showMessageDialog(null, "Thêm Tour Thành Công!");
+//					} catch (SQLException e1) 
 					{
 						JOptionPane.showMessageDialog(null, "Có Lỗi Xảy Ra, Vui Lòng Thử Lại Sau!");
 					}
@@ -290,7 +290,7 @@ public class GDQuanLyTour extends JFrame implements ActionListener, MouseListene
 					try {
 						tourDAO.xoa(txtMaTour.getText());
 						int currentPostition;
-						modelTour.removeRow(currentPostition);
+//						modelTour.removeRow(currentPostition);
 						JOptionPane.showMessageDialog(null, "Xóa Thành Công!");
 					} catch (SQLException e1) {
 						JOptionPane.showMessageDialog(null, "Có Lỗi Xảy Ra, Vui Lòng Thử Lại Sau!");
@@ -332,11 +332,7 @@ public class GDQuanLyTour extends JFrame implements ActionListener, MouseListene
 			
 		}
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+	
 
 	}
 

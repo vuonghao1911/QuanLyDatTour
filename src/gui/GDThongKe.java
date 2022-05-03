@@ -72,7 +72,7 @@ import entity.Ve;
 import javax.swing.JComboBox;
 import java.awt.Toolkit;
 
-public class GDThongKe extends JFrame implements ActionListener, KeyListener, MouseListener {
+public class GDThongKe extends JPanel implements ActionListener, KeyListener, MouseListener {
 
 	private JPanel contentPane;
 	private JTextField txtTenNV;
@@ -113,18 +113,21 @@ public class GDThongKe extends JFrame implements ActionListener, KeyListener, Mo
 	 * Create the frame.
 	 */
 	public GDThongKe() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("img/Group.png"));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1200, 800);
+		//setIconImage(Toolkit.getDefaultToolkit().getImage("img/Group.png"));
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1250, 660);
+		setLayout(null);
 		contentPane = new JPanel();
+		contentPane.setBounds(0, 1, 1250, 660);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+	//	setContentPane(contentPane);
 		contentPane.setLayout(null);
+		add(contentPane);
 		FlatCyanLightIJTheme.setup();
-		setLocationRelativeTo(null);
+		//setLocationRelativeTo(null);
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(173, 216, 230));
-		panel.setBounds(0, 0, 1204, 94);
+		panel.setBounds(0, 0, 1277, 85);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -161,19 +164,19 @@ public class GDThongKe extends JFrame implements ActionListener, KeyListener, Mo
 			panel_1.setBorder(new LineBorder(new Color(224, 255, 255), 2));
 			panel_1.setBounds(new Rectangle(4, 5, 2, 2));
 			panel_1.setBackground(new Color(162, 226, 242));
-			panel_1.setBounds(24, 110, 182, 34);
+			panel_1.setBounds(20, 95, 182, 34);
 			contentPane.add(panel_1);
 			panel_1.setLayout(new BorderLayout(0, 0));
 			
 			JLabel lblNewLabel_2 = new JLabel("Tìm Theo Tên Nhân Viên");
+			panel_1.add(lblNewLabel_2, BorderLayout.CENTER);
 			lblNewLabel_2.setForeground(new Color(	24, 140, 166));
 			lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-			panel_1.add(lblNewLabel_2);
 			
 			txtTenNV = new JTextField();
 			txtTenNV.setBackground(new Color(241, 233, 233));
-			txtTenNV.setBounds(216, 110, 161, 34);
+			txtTenNV.setBounds(214, 95, 161, 34);
 			contentPane.add(txtTenNV);
 			txtTenNV.setColumns(10);
 			
@@ -182,7 +185,7 @@ public class GDThongKe extends JFrame implements ActionListener, KeyListener, Mo
 			panel_1_1.setBounds(new Rectangle(4, 5, 2, 2));
 			panel_1_1.setBorder(new LineBorder(new Color(224, 255, 255), 2));
 			panel_1_1.setBackground(new Color(162, 226, 242));
-			panel_1_1.setBounds(409, 110, 197, 34);
+			panel_1_1.setBounds(406, 95, 197, 34);
 			contentPane.add(panel_1_1);
 			panel_1_1.setLayout(new BorderLayout(0, 0));
 			
@@ -195,13 +198,13 @@ public class GDThongKe extends JFrame implements ActionListener, KeyListener, Mo
 			txtTenKH = new JTextField();
 			txtTenKH.setColumns(10);
 			txtTenKH.setBackground(new Color(241, 233, 233));
-			txtTenKH.setBounds(616, 110, 161, 34);
+			txtTenKH.setBounds(619, 95, 161, 34);
 			contentPane.add(txtTenKH);
 			
 			dcNgay = new JDateChooser();
 			dcNgay.setBorder(new LineBorder(new Color(239, 195, 197)));
 			dcNgay.setBackground(new Color(241, 233, 233));
-			dcNgay.setBounds(878, 110, 171, 34);
+			dcNgay.setBounds(871, 95, 171, 34);
 			contentPane.add(dcNgay);
 			
 			btnTim = new JButton("TÌM");
@@ -210,24 +213,24 @@ public class GDThongKe extends JFrame implements ActionListener, KeyListener, Mo
 			btnTim.setForeground(new Color(24, 140, 166));
 			btnTim.setBackground(new Color(162, 226, 242));
 			btnTim.setFont(new Font("Tahoma", Font.BOLD, 13));
-			btnTim.setBounds(1081, 110, 95, 34);
+			btnTim.setBounds(1081, 95, 95, 34);
 			contentPane.add(btnTim);
 			
 			JPanel panel_2 = new JPanel();
 			panel_2.setBorder(new LineBorder(new Color(152, 251, 152), 2));
 			panel_2.setBackground(new Color(50, 205, 50));
-			panel_2.setBounds(100, 164, 364, 117);
+			panel_2.setBounds(100, 164, 315, 100);
 			contentPane.add(panel_2);
 			panel_2.setLayout(null);
 			
 			lblDoanhThu = new JLabel("4.500.000 VND");
 			lblDoanhThu.setFont(new Font("Times New Roman", Font.BOLD, 19));
 			lblDoanhThu.setForeground(new Color(245, 255, 250));
-			lblDoanhThu.setBounds(122, 73, 153, 27);
+			lblDoanhThu.setBounds(119, 63, 153, 27);
 			panel_2.add(lblDoanhThu);
 			
 			JLabel lblNewLabel_3 = new JLabel("   TỔNG DOANH THU");
-			lblNewLabel_3.setBounds(55, 10, 240, 70);
+			lblNewLabel_3.setBounds(39, 0, 240, 70);
 			panel_2.add(lblNewLabel_3);
 			lblNewLabel_3.setVerticalTextPosition(SwingConstants.TOP);
 			lblNewLabel_3.setForeground(new Color(248, 248, 255));
@@ -238,14 +241,14 @@ public class GDThongKe extends JFrame implements ActionListener, KeyListener, Mo
 			panel_2_1.setBorder(new LineBorder(new Color(255, 215, 0), 2));
 			panel_2_1.setLayout(null);
 			panel_2_1.setBackground(new Color(255, 165, 0));
-			panel_2_1.setBounds(726, 164, 364, 117);
+			panel_2_1.setBounds(726, 164, 323, 100);
 			contentPane.add(panel_2_1);
 			
 			lblSoVe = new JLabel("4.500.000 VND");
 			lblSoVe.setHorizontalAlignment(SwingConstants.CENTER);
 			lblSoVe.setForeground(new Color(245, 255, 250));
 			lblSoVe.setFont(new Font("Times New Roman", Font.BOLD, 19));
-			lblSoVe.setBounds(93, 55, 187, 38);
+			lblSoVe.setBounds(88, 52, 187, 38);
 			panel_2_1.add(lblSoVe);
 			
 			JLabel lblNewLabel_3_1 = new JLabel("TỔNG SỐ VÉ ĐÃ ĐẶT");
@@ -253,12 +256,12 @@ public class GDThongKe extends JFrame implements ActionListener, KeyListener, Mo
 			lblNewLabel_3_1.setVerticalTextPosition(SwingConstants.TOP);
 			lblNewLabel_3_1.setForeground(new Color(248, 248, 255));
 			lblNewLabel_3_1.setFont(new Font("Times New Roman", Font.BOLD, 15));
-			lblNewLabel_3_1.setBounds(55, 10, 240, 70);
+			lblNewLabel_3_1.setBounds(50, 0, 240, 70);
 			panel_2_1.add(lblNewLabel_3_1);
 			
 			JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 			tabbedPane.setBackground(new Color(255, 255, 255));
-			tabbedPane.setBounds(10, 303, 1166, 450);
+			tabbedPane.setBounds(10, 274, 1215, 376);
 			contentPane.add(tabbedPane);
 			
 			JPanel panel_3 = new JPanel();
@@ -268,7 +271,7 @@ public class GDThongKe extends JFrame implements ActionListener, KeyListener, Mo
 			panel_3.setLayout(null);
 			
 			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setBounds(0, 10, 1161, 402);
+			scrollPane.setBounds(0, 10, 1210, 335);
 			panel_3.add(scrollPane);
 			
 			 model = new DefaultTableModel(colsTC,0);
@@ -303,14 +306,14 @@ public class GDThongKe extends JFrame implements ActionListener, KeyListener, Mo
 			lblNewLabel_2_2.setForeground(new Color(24, 140, 166));
 			lblNewLabel_2_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			
-			cboThang = new JComboBox<>(cboString);
+			cboThang = new JComboBox<>();
 			cboThang.setBackground(new Color(241, 233, 233));
 			cboThang.setBounds(625, 10, 137, 29);
 			
 			pnBieuDo.add(cboThang);
 			
 			pnThongKe = new JPanel();
-			pnThongKe.setBounds(10, 49, 1141, 353);
+			pnThongKe.setBounds(10, 49, 1200, 295);
 			pnBieuDo.add(pnThongKe);
 			
 			ThongKeDoanhThuThang(pnThongKe, LocalDate.now().getMonthValue());

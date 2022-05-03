@@ -28,7 +28,7 @@ import dao.KhachHang_DAO;
 import entity.KhachHang;
 
 @SuppressWarnings("serial")
-public class GDQuanLyKhachHang extends JFrame implements ActionListener, MouseListener {
+public class GDQuanLyKhachHang extends JPanel implements ActionListener, MouseListener {
 	private JPanel pnlControl;
 	private JPanel pnlTask;
 	private JPanel pnlContent;
@@ -78,11 +78,12 @@ public class GDQuanLyKhachHang extends JFrame implements ActionListener, MouseLi
 	}
 
 	private void initGUI() {
-		this.setSize(640, 480);
-		this.setResizable(false);
-		this.setTitle("Quản Lý Khách Hàng");
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setSize(1240, 574);
+		setLayout(new BorderLayout());
+		//this.setResizable(false);
+		//this.setTitle("Quản Lý Khách Hàng");
+	//	this.setLocationRelativeTo(null);
+		//this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		this.add(pnlContent = new JPanel(), BorderLayout.CENTER);
 		this.add(pnlControl = new JPanel(), BorderLayout.NORTH);
