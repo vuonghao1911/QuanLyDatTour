@@ -30,6 +30,7 @@ public class Tour {
 		this.giaTreEm = giaTreEm;
 		this.soLuong = soLuong;
 	}
+	
 	public Tour(int maTour) {
 		super();
 		this.maTour = maTour;
