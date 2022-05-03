@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -29,9 +30,8 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import dao.NhanVien_DAO;
+import connectDB.ConnectDB;
 import dao.Tour_DAO;
-import entity.NhanVien;
 import entity.Tour;
 
 
@@ -49,31 +49,25 @@ public class GDQuanLyTour extends JFrame implements ActionListener, MouseListene
 		private JTextField txtTenTour;
 		private JTextField txtNKH;
 		private JTextField txtDiemDen;
+		private JTextField txtDiemDi;
 		private JTextField txtGia;
 		private JTextField txtGiaTE;
 		private JTextField txtMoTa;
 		private JTextField txtTim;
 		private JTextField txtSoLuong;
-		
 		private JButton bttTimKiem;
-		private JButton bttThem;
-		private JButton bttXoaTrang;	
+		private JButton bttThem;	
 		private JButton bttCapNhat;
-		private JButton bttLuu;
 		private JButton bttXoa;
 		
 		
-		private void setListener() {
-			bttTimKiem.addActionListener(this);
-			bttThem.addActionListener(this);
-			bttLuu.addActionListener(this);
-			bttXoa.addActionListener(this);
-			bttXoaTrang.addActionListener(this);
-		}
+		
+			
+	
 		public GDQuanLyTour() {
 			
 			setTitle("QUANLYTOUR");
-			setSize(1000, 600);
+			setSize(1250, 700);
 			setDefaultCloseOperation(EXIT_ON_CLOSE);
 			setLocationRelativeTo(null);
 //			setResizable(false);
@@ -119,11 +113,18 @@ public class GDQuanLyTour extends JFrame implements ActionListener, MouseListene
 	        p1.add(p13);
 	        
 	        JPanel p14 = new JPanel();
+	        JLabel lblDiemDi = new JLabel("Điểm xuất phát: ");
+	        txtDiemDi = new JTextField(30);
+	        p14.add(lblDiemDi);
+	        p14.add(txtDiemDi);
+	        p1.add(p14);
+	        
+	        JPanel p15 = new JPanel();
 	        JLabel lblMoTa = new JLabel("Mô tả: ");
 	        txtMoTa = new JTextField(30);
-	        p14.add(lblMoTa);
-	        p14.add(txtMoTa);
-	        p1.add(p14);
+	        p15.add(lblMoTa);
+	        p15.add(txtMoTa);
+	        p1.add(p15);
 	        
 			pnThongTin.add(p1);
 			
@@ -147,23 +148,24 @@ public class GDQuanLyTour extends JFrame implements ActionListener, MouseListene
 	        
 	        JPanel p23 = new JPanel();
 	        JLabel lblGia = new JLabel("Giá: ");
-	        txtGia = new JTextField(13);
+	        txtGia = new JTextField(30);
 	        p23.add(lblGia);
 	        p23.add(txtGia);
-	        p23.add(Box.createHorizontalStrut(10));
-	        JLabel lblGiaTE = new JLabel("Giá trẻ em: ");
-	        txtGiaTE = new JTextField(14);
-	        p23.add(lblGiaTE);
-	        p23.add(txtGiaTE);
-	   
 	        p2.add(p23);
 	        
 	        JPanel p24 = new JPanel();
+	        JLabel lblGiaTE = new JLabel("Giá trẻ em: ");
+	        txtGiaTE = new JTextField(30);
+	        p24.add(lblGiaTE);
+	        p24.add(txtGiaTE);
+	        p2.add(p24);
+	        
+	        JPanel p25 = new JPanel();
 	        JLabel lblSoLuong = new JLabel("Số lượng: ");
 	        txtSoLuong = new JTextField(30);
-	        p24.add(lblSoLuong);
-	        p24.add(txtSoLuong);
-	        p2.add(p24);
+	        p25.add(lblSoLuong);
+	        p25.add(txtSoLuong);
+	        p2.add(p25);
 	        
 			pnThongTin.add(p2);
 			
@@ -173,6 +175,8 @@ public class GDQuanLyTour extends JFrame implements ActionListener, MouseListene
 			lblTen.setPreferredSize(lblNKH.getPreferredSize());
 			lblSoLuong.setPreferredSize(lblNKH.getPreferredSize());
 			lblThoiGian.setPreferredSize(lblNKH.getPreferredSize());
+			lblGia.setPreferredSize(lblNKH.getPreferredSize());
+			lblGiaTE.setPreferredSize(lblNKH.getPreferredSize());
 			
 			
 			Border boderThongTin = BorderFactory.createLineBorder(Color.BLUE);
@@ -192,29 +196,22 @@ public class GDQuanLyTour extends JFrame implements ActionListener, MouseListene
 	        bttTimKiem = new JButton("Tìm kiếm");
 	        bttCapNhat = new JButton("Cập nhật");
 	        bttThem = new JButton("Thêm");
-	        bttXoaTrang = new JButton("Xóa trắng");
 	        bttXoa = new JButton("Xóa");
-	        bttLuu = new JButton("Lưu");
+	     
 			
 	        bttXoa.setBackground(Color.RED);
 	        
 	        
-	        bttTimKiem.setPreferredSize(bttXoaTrang.getPreferredSize());
-	        bttLuu.setPreferredSize(bttXoaTrang.getPreferredSize());
-	        bttThem.setPreferredSize(bttXoaTrang.getPreferredSize());
-	        bttCapNhat.setPreferredSize(bttXoaTrang.getPreferredSize());
-	        bttXoa.setPreferredSize(bttXoaTrang.getPreferredSize());
+	        bttTimKiem.setPreferredSize(bttCapNhat.getPreferredSize());
+	        bttThem.setPreferredSize(bttCapNhat.getPreferredSize());
+	        bttXoa.setPreferredSize(bttCapNhat.getPreferredSize());
 	        
 
 	        pnCN.add(txtTim);
 	        pnCN.add(Box.createHorizontalStrut(10));
 	        pnCN.add(bttTimKiem);
 	        pnCN.add(Box.createHorizontalStrut(10));
-	        pnCN.add(bttXoaTrang);
-	        pnCN.add(Box.createHorizontalStrut(10));
 	        pnCN.add(bttThem);
-	        pnCN.add(Box.createHorizontalStrut(10));
-	        pnCN.add(bttLuu);
 	        pnCN.add(Box.createHorizontalStrut(10));
 	        pnCN.add(bttCapNhat);
 	        pnCN.add(Box.createHorizontalStrut(10));
@@ -232,7 +229,7 @@ public class GDQuanLyTour extends JFrame implements ActionListener, MouseListene
 //			bảng
 			JPanel pnBang = new JPanel();
 			pnBang.setLayout(new BorderLayout());
-			String[] colHeader = { "Mã Tour", "Tên Tour", "Điểm đến", "Thời gian", "Ngày khởi hành", "Mô tả", "Giá", "Giá trẻ em", "Số lượng" };
+			String[] colHeader = { "Mã Tour", "Tên Tour", "Điểm xuất phát", "Điểm đến", "Thời gian", "Ngày khởi hành", "Mô tả", "Giá", "Giá trẻ em", "Số lượng" };
 			modelTour = new DefaultTableModel(colHeader, 0);
 			tableTour = new JTable(modelTour);
 			pnBang.add(new JScrollPane(tableTour), BorderLayout.CENTER);
@@ -244,13 +241,25 @@ public class GDQuanLyTour extends JFrame implements ActionListener, MouseListene
 			pnQLTour.add(pnBang);
 
 			add(pnQLTour);
+
+//			khởi tạo đối tượng kết nối xuống database
+			try {
+				ConnectDB.getInstance().connect();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			
+			bttTimKiem.addActionListener(this);
+			bttThem.addActionListener(this);
+			bttCapNhat.addActionListener(this);
+			bttXoa.addActionListener(this);
 			
 		}
 		
-//		public static void main(String[] args) {
-//			new GDQuanLyTour().setVisible(true);
-//		}
+		public static void main(String[] args) {
+			new GDQuanLyTour().setVisible(true);
+		}
+		
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -265,23 +274,31 @@ public class GDQuanLyTour extends JFrame implements ActionListener, MouseListene
 					JOptionPane.showMessageDialog(null, "Không tìm thấy thông tin về tour !");
 				} else {
 					modelTour.getDataVector().removeAllElements();
+
+					modelTour.addRow(new Object[] { String( tour.getMaTour(), tour.getTenTour(), tour.getDiemDen(), tour.getDiemXuatPhat(),
+							tour.getThoiGian(), tour.getMoTa(), tour.getNgayKhoiHanh(), tour.getGia(), tour.getGiaTreEm(), tour.getSoLuong())});
+
 					modelTour.addRow(new Object[] {  tour.getMaTour(), tour.getTenTour(), tour.getDiemDen(), tour.getDiemXuatPhat(),
 							tour.getThoiGian(), tour.getMoTa(), tour.getNgayKhoiHanh(), tour.getGia(), tour.getGiaTreEm(), tour.getSoLuong()});
+
 				}
-			} else if (object.equals(bttThem)) {
-				if (dstour.contains(new NhanVien(Integer.parseInt(txtMaTour.getText())))) {
+			} else if (object.equals(bttThem)) { 
+				if (dstour.contains(new Tour(Integer.parseInt(txtMaTour.getText() ) ) ) ) {
 					JOptionPane.showMessageDialog(null, "Mã tour Đã Tồn Tại!");
-//				} else  {
-//					try {
-//						Tour tour = new Tour(Integer(txtMaTour.getText(), txtTenTour.getText(),txtDiemDen.getText(), txtThoiGian.getText(), txtMoTa.getText(), txtNKH.getText(), txtGia.getText(), txtGiaTE.getText(), txtSoLuong.getText()));
-//						tourDAO.them(tour);
-//						modelTour.addRow(new Object[] { String(tour.getMaTour(), tour.getTenTour(), tour.getDiemDen(), tour.getDiemXuatPhat(),
-//								tour.getThoiGian(), tour.getMoTa(), tour.getNgayKhoiHanh(), tour.getGia(), tour.getGiaTreEm(), tour.getSoLuong() });
-//						JOptionPane.showMessageDialog(null, "Thêm Tour Thành Công!");
-//					} catch (SQLException e1) 
+
+				} else  {
+					try {
+						Tour tour = new Tour(String(txtMaTour.getText(), txtTenTour.getText(),txtDiemDen.getText(), txtDiemDi.getText(), txtThoiGian.getText(), txtMoTa.getText(), txtNKH.getText(), txtGia.getText(), txtGiaTE.getText(), txtSoLuong.getText()));
+						tourDAO.them(tour);
+						modelTour.addRow(new Object[] { String(tour.getMaTour(), tour.getTenTour(), tour.getDiemDen(), tour.getDiemXuatPhat(),
+								tour.getThoiGian(), tour.getMoTa(), tour.getNgayKhoiHanh(), tour.getGia(), tour.getGiaTreEm(), tour.getSoLuong()) });
+						JOptionPane.showMessageDialog(null, "Thêm Tour Thành Công!");
+					} catch (SQLException e1) 
+
 					{
 						JOptionPane.showMessageDialog(null, "Có Lỗi Xảy Ra, Vui Lòng Thử Lại Sau!");
 					}
+					xoaTrang();
 				}				
 			} else if (object.equals(bttXoa)) {
 				if (tableTour.getSelectedRow() == -1) {
@@ -289,24 +306,31 @@ public class GDQuanLyTour extends JFrame implements ActionListener, MouseListene
 				} else {
 					try {
 						tourDAO.xoa(txtMaTour.getText());
-						int currentPostition;
-//						modelTour.removeRow(currentPostition);
+
+						int currentPostition = 0;
+						modelTour.removeRow(currentPostition);				
 						JOptionPane.showMessageDialog(null, "Xóa Thành Công!");
 					} catch (SQLException e1) {
 						JOptionPane.showMessageDialog(null, "Có Lỗi Xảy Ra, Vui Lòng Thử Lại Sau!");
 					}
-				
+					xoaTrang();
 				}
 			}
 		}
 		
 		
-		@Override
-		public void mouseClicked(MouseEvent e) {
+		private Object String(int maTour, java.lang.String tenTour, java.lang.String diemDen,
+				java.lang.String diemXuatPhat, java.lang.String thoiGian, java.lang.String moTa, Date ngayKhoiHanh,
+				Double gia, Double giaTreEm, int soLuong) {
 			// TODO Auto-generated method stub
-			
-			
+			return null;
 		}
+		private int String(String text, String text2, String text3, String text4, String text5, String text6,
+				String text7, String text8, String text9, String text10) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+		
 
 		@Override
 		public void mousePressed(MouseEvent e) {
@@ -332,7 +356,26 @@ public class GDQuanLyTour extends JFrame implements ActionListener, MouseListene
 			
 		}
 
-	
+
+
+		private void xoaTrang(){
+			txtMaTour.setText("");
+			txtTenTour.setText("");
+			txtDiemDen.setText("");
+			txtDiemDi.setText("");
+			txtMoTa.setText("");
+			txtNKH.setText("");
+			txtThoiGian.setText("");
+			txtGia.setText("");
+			txtGiaTE.setText("");
+			txtSoLuong.setText("");
+		}
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
 
 	}
 
