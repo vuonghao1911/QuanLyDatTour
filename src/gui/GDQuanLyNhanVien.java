@@ -82,12 +82,12 @@ public class GDQuanLyNhanVien extends JFrame implements ActionListener, MouseLis
 	}
 
 	private void initGUI() {
-		this.setSize(640, 480);
+		this.setSize(1250, 700);
 		this.setResizable(false);
 		this.setTitle("Quản Lý Nhân Viên");
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+		
 		this.add(pnlContent = new JPanel(), BorderLayout.CENTER);
 		this.add(pnlControl = new JPanel(), BorderLayout.NORTH);
 

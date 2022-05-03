@@ -135,4 +135,49 @@ public class Tour_DAO {
 		return tour;
 		}
 	
+	public ArrayList<Tour> getTourTheoDieuKien(String giaTourFirst,String giaTourLast, String date){
+		ArrayList<Tour> dsTour = new ArrayList<Tour>();
+		ConnectDB.getInstance();
+		Connection con = ConnectDB.getConnection();
+		try {
+			String sql = "select maTour,tenTour,ngayKhoiHanh,diemDen,thoiGian,gia,giaTreEm,moTa from Tour "
+					+ "where gia between "+giaTourFirst+" and "+giaTourLast+" and ngayKhoiHanh >= '"+date+"'";
+			Statement statement = con.createStatement();
+			ResultSet rs = statement.executeQuery(sql);
+			while(rs.next()) {
+				int maTour = rs.getInt("maTour");
+				String tenTour = rs.getString("tenTour");
+				Date ngayDi = rs.getDate("ngayKhoiHanh");
+				String diemDen = rs.getString("diemDen");
+				String thoiGian = rs.getString("thoiGian");
+				Double gia = rs.getDouble("gia");
+				Double giaTreEm = rs.getDouble("giaTreEm");
+				Tour tour = new Tour(maTour,tenTour,diemDen,thoiGian,ngayDi,gia,giaTreEm);
+				dsTour.add(tour);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return dsTour;
+	}
+	
+	public Tour getTourTheoMa(String ma) {
+		ConnectDB.getInstance();
+		Connection con = ConnectDB.getConnection();
+		Tour tour = null;
+		try {
+			String sql = "select maTour, moTa from Tour where maTour = " + ma ;
+			Statement statement = con.createStatement();
+			ResultSet rs = statement.executeQuery(sql);
+			while(rs.next()) {
+				int maTour = rs.getInt("maTour");
+				String moTa = rs.getString("moTa");
+				tour = new Tour(maTour, moTa);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return tour;
+	}
 }
