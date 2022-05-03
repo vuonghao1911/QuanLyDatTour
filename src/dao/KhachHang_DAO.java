@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +41,22 @@ public class KhachHang_DAO {
 	}
 	
 	public void add(KhachHang customer) throws SQLException {
-		
+		Connection connection = ConnectDB.getConnection();
+		PreparedStatement preparedStatement = null;
+		Statement statement = connection.createStatement();
+		try {
+			String sqlQueryCommand = "INSERT INTO KhachHang(maKH, tenKH, sdt, gioiTinh, cmnd) VALUES(?, ?, ?, ?, ?)";
+			preparedStatement = connection.prepareStatement(sqlQueryCommand);
+			preparedStatement.setInt(1, customer.getMaKH());
+			preparedStatement.setString(2, customer.getTenKH());
+			preparedStatement.setString(3, customer.getSdt());
+			preparedStatement.setString(4, customer.getGioiTinh());
+			preparedStatement.setString(5, customer.getCmnd());
+			statement.executeUpdate("SET IDENTITY_INSERT KhachHang ON");
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void update(KhachHang customer, String id) throws SQLException {

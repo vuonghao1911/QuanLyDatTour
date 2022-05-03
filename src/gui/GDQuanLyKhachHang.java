@@ -182,6 +182,7 @@ public class GDQuanLyKhachHang extends JPanel implements ActionListener, MouseLi
 	public void actionPerformed(ActionEvent e) {
 		Object object = e.getSource();
 		KhachHang_DAO customerDAO = new KhachHang_DAO();
+		List<KhachHang> customers = customerDAO.getAll();
 		if (object.equals(btnSearch)) {
 			KhachHang customer = customerDAO.findByID(tfSearch.getText());
 			if (tfSearch.getText().equals("")) {
@@ -194,7 +195,22 @@ public class GDQuanLyKhachHang extends JPanel implements ActionListener, MouseLi
 						customer.getGioiTinh(), customer.getCmnd(), customer.getMaVe() });
 			}
 		} else if (object.equals(btnAdd)) {
-			// Call Ticker Register
+			if (customers.contains(new KhachHang(Integer.parseInt(tfID.getText())))) {
+				JOptionPane.showMessageDialog(null, "Mã Nhân Viên Đã Tồn Tại!");
+			} else if (isValidField()) {
+				try {
+					KhachHang customer = new KhachHang(Integer.parseInt(tfID.getText()), tfName.getText(), tfTel.getText(),
+							cbxGender.getSelectedItem().toString(), tfCode.getText());
+					customerDAO.add(customer);
+					defaultTableModel.addRow(new Object[] { customer.getMaKH(), customer.getTenKH(), customer.getSdt(),
+							customer.getGioiTinh(), customer.getCmnd(), customer.getMaVe() });
+					clearField();
+					JOptionPane.showMessageDialog(null, "Thêm Khách Hàng Thành Công!");
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(null, "Có Lỗi Xảy Ra, Vui Lòng Thử Lại Sau!");
+				}
+				clearField();
+			}
 			
 		} else if (object.equals(btnUpdate)) {
 			if (tblCustomer.getSelectedRow() == -1) {
