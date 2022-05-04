@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
@@ -32,10 +34,16 @@ import javax.swing.border.BevelBorder;
 import javax.swing.SwingConstants;
 
 import connectDB.ConnectDB;
+import dao.KhachHang_DAO;
 import dao.Tour_DAO;
+import dao.VeDao;
+import entity.KhachHang;
+import entity.NhanVien;
 import entity.Tour;
+import entity.Ve;
+import shareData.ShareData;
 
-public class DatTour_GUI extends JPanel implements ActionListener, MouseListener{
+public class DatTour_GUI extends JPanel implements ActionListener, MouseListener, KeyListener{
 	/**
 	 * 
 	 */
@@ -71,6 +79,9 @@ public class DatTour_GUI extends JPanel implements ActionListener, MouseListener
 	private JTextArea tAreaMoTa;
 	private JTextField txtSDT;
 	private JTextField txtGioiTinh;
+	private KhachHang_DAO khachHang_DAO;
+	private KhachHang khachHang ;
+	private VeDao veDao;
 
 	public static void main(String[] args) {
 		new DatTour_GUI().setVisible(true);
@@ -85,7 +96,8 @@ public class DatTour_GUI extends JPanel implements ActionListener, MouseListener
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}	
-		
+		khachHang_DAO =  new KhachHang_DAO();
+		veDao = new VeDao();
 		// -------------------------------------------
 		//setDefaultCloseOperation(EXIT_ON_CLOSE);
 	//	setResizable(false);
@@ -447,6 +459,8 @@ public class DatTour_GUI extends JPanel implements ActionListener, MouseListener
 		btnHuy.addActionListener(this);
 		btnThanhToan.addActionListener(this);
 		table.addMouseListener(this);
+		
+		txtCMND.addKeyListener(this);
 	}
 
 		@Override
@@ -465,7 +479,39 @@ public class DatTour_GUI extends JPanel implements ActionListener, MouseListener
 			}
 			if(o.equals(btnXacNhan)) {
 				if(validData()) {
-					errNhapThongTin.setText("Đăng ký thành công vui lòng chọn loại tour");
+					int row = table.getSelectedRow();
+					if (row == -1) {
+						JOptionPane.showMessageDialog(this, "Vui Lòng Chọn Tour");
+					}else {
+						
+					
+						Ve ve = getVeFromTable();
+						boolean rs = veDao.insert(ve);
+						if (rs== true) {
+							
+							errThanhToan.setText("");
+							lblTenTour.setText(tableModel.getValueAt(row, 1).toString());
+							lblTTNgay.setText(tableModel.getValueAt(row, 2).toString());
+							lblTTThoiGian.setText(tableModel.getValueAt(row, 4).toString());
+						
+							double giaNL = Double.parseDouble( tableModel.getValueAt(row, 5).toString());
+							double giaTongNL = giaNL*Integer.parseInt(txtSLNguoiLon.getText());
+							lblTTGiaNL.setText(giaTongNL+"");
+						
+							double giaTE = Double.parseDouble(tableModel.getValueAt(row, 6).toString());
+							double giaTongTE = giaTE * Integer.parseInt(txtSlTreEm.getText());
+							lblTTTTGiaTE.setText(giaTongTE+"");
+						
+							double giaTong = giaTongNL + giaTongTE;
+							lblTTTong.setText(giaTong+"");
+							
+							Tour tour = tour_DAO.getTourTheoMa(tableModel.getValueAt(row, 0).toString());
+							tAreaMoTa.setText(tour.getMoTa());
+						}
+						
+					}
+					
+					
 				}
 			}
 			if(o.equals(btnThanhToan)) {
@@ -492,10 +538,10 @@ public class DatTour_GUI extends JPanel implements ActionListener, MouseListener
 				errNhapThongTin.setText("Chứng minh nhân dân phải 9 hoặc 12 số");
 				return false;
 			}
-			if(!(hoTen.length() > 0 && hoTen.matches("^[A-Z][a-z]*\\s([A-Z][a-z]*\\s?)+"))) {
-				errNhapThongTin.setText("Chữ cái đầu phải viết hoa và phải có ít nhất 2 từ");
-				return false;
-			}
+//			if(!(hoTen.length() > 0 && hoTen.matches("^[A-Z][a-z]*\\s([A-Z][a-z]*\\s?)+"))) {
+//				errNhapThongTin.setText("Chữ cái đầu phải viết hoa và phải có ít nhất 2 từ");
+//				return false;
+//			}
 			if(!(sdt.length() > 0  && sdt.matches("^0\\d{9}"))) {
 				errNhapThongTin.setText("Số điện thoại phải 10 số và bắt đầu bằng số 0");
 				return false;
@@ -574,28 +620,28 @@ public class DatTour_GUI extends JPanel implements ActionListener, MouseListener
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			int row = table.getSelectedRow();
-			if(!kiemTraRong()) {
-				errThanhToan.setText("Bạn chưa nhập thông tin");
-			} else {
-				errThanhToan.setText("");
-				lblTenTour.setText(tableModel.getValueAt(row, 1).toString());
-				lblTTNgay.setText(tableModel.getValueAt(row, 2).toString());
-				lblTTThoiGian.setText(tableModel.getValueAt(row, 4).toString());
-			
-				double giaNL = Double.parseDouble( tableModel.getValueAt(row, 5).toString());
-				double giaTongNL = giaNL*Integer.parseInt(txtSLNguoiLon.getText());
-				lblTTGiaNL.setText(giaTongNL+"");
-			
-				double giaTE = Double.parseDouble(tableModel.getValueAt(row, 6).toString());
-				double giaTongTE = giaTE * Integer.parseInt(txtSlTreEm.getText());
-				lblTTTTGiaTE.setText(giaTongTE+"");
-			
-				double giaTong = giaTongNL + giaTongTE;
-				lblTTTong.setText(giaTong+"");
-				
-				Tour tour = tour_DAO.getTourTheoMa(tableModel.getValueAt(row, 0).toString());
-				tAreaMoTa.setText(tour.getMoTa());
-			}
+//			if(!kiemTraRong()) {
+//				errThanhToan.setText("Bạn chưa nhập thông tin");
+//			} else {
+//				errThanhToan.setText("");
+//				lblTenTour.setText(tableModel.getValueAt(row, 1).toString());
+//				lblTTNgay.setText(tableModel.getValueAt(row, 2).toString());
+//				lblTTThoiGian.setText(tableModel.getValueAt(row, 4).toString());
+//			
+//				double giaNL = Double.parseDouble( tableModel.getValueAt(row, 5).toString());
+//				double giaTongNL = giaNL*Integer.parseInt(txtSLNguoiLon.getText());
+//				lblTTGiaNL.setText(giaTongNL+"");
+//			
+//				double giaTE = Double.parseDouble(tableModel.getValueAt(row, 6).toString());
+//				double giaTongTE = giaTE * Integer.parseInt(txtSlTreEm.getText());
+//				lblTTTTGiaTE.setText(giaTongTE+"");
+//			
+//				double giaTong = giaTongNL + giaTongTE;
+//				lblTTTong.setText(giaTong+"");
+//				
+//				Tour tour = tour_DAO.getTourTheoMa(tableModel.getValueAt(row, 0).toString());
+//				tAreaMoTa.setText(tour.getMoTa());
+			//}
 			
 		}
 
@@ -619,6 +665,60 @@ public class DatTour_GUI extends JPanel implements ActionListener, MouseListener
 
 		@Override
 		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyTyped(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+			Object o = e.getSource();
+			if(o.equals(txtCMND)) {
+				
+			if(e.getKeyCode()==KeyEvent.VK_ENTER) {
+				int count = 0;
+				String cmnd = txtCMND.getText().trim();
+				for(KhachHang kh :khachHang_DAO.getAll()) {
+					if(cmnd.contains(kh.getCmnd())) {
+						khachHang =kh;
+						txtHoTen.setText(kh.getTenKH());
+						txtSDT.setText(kh.getSdt());
+						txtGioiTinh.setText(kh.getGioiTinh());
+						count++;
+					}
+				}
+				
+				if(count<=0) {
+					txtHoTen.setText("");
+					txtGioiTinh.setText("");
+					txtSDT.setText("");
+					txtHoTen.requestFocus();
+					
+				}
+			}
+			
+		}
+		}
+	public Ve getVeFromTable() {
+		int row = table.getSelectedRow();
+		int maTour = Integer.parseInt(tableModel.getValueAt(row, 0).toString());
+		int slNguoiLon = Integer.parseInt( txtSLNguoiLon.getText());
+		int slTreEm = Integer.parseInt(txtSlTreEm.getText());
+		Tour tour = new Tour(maTour);
+		NhanVien nVien = new NhanVien(ShareData.taiKhoan.getTenDN());
+		Ve ve = new Ve(0, slNguoiLon, slTreEm, 0, tour, khachHang, nVien);
+		
+		return ve;
+		
+	}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
 			// TODO Auto-generated method stub
 			
 		}		

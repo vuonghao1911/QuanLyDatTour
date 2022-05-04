@@ -1,6 +1,7 @@
-package gui;
+package app;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 
@@ -16,6 +17,9 @@ import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 import dao.NhanVien_DAO;
 import entity.NhanVien;
 import entity.TaiKhoan;
+import gui.DatTour_GUI;
+import gui.GDQuanLyTour;
+import gui.GDThongKe;
 import shareData.ShareData;
 
 import javax.swing.JLabel;
@@ -28,13 +32,20 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class GDChinh extends JFrame {
+public class GDChinh extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JLabel lblGio;
 	private JLabel lblNgay;
 	private JLabel lblNhanVien;
+	private JButton btnThongKe;
+	private JButton btnThngKe;
+	private JButton btnQLNV;
+	private JPanel panel;
 
 	/**
 	 * Launch the application.
@@ -67,27 +78,7 @@ public class GDChinh extends JFrame {
 		setLocationRelativeTo(null);
 		FlatCyanLightIJTheme.setup();
 		contentPane.setLayout(null);
-		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(20, 93, 1250, 700);
 		JPanel pnKhachHang = new GDQuanLyTour();
-		tabbedPane.addTab(" Đặt Tour",new ImageIcon("img/calendar.png"), new DatTour_GUI());
-		tabbedPane.addTab(" Quản Lý Tour", new ImageIcon("img/travel-schedule.png"), pnKhachHang);
-		//pnKhachHang.setPreferredSize(new Dimension(tabbedPane.getWidth(),tabbedPane.getHeight()));
-		tabbedPane.addTab("Thống Kê",new ImageIcon("img/graphical-report.png"), new GDThongKe());
-		tabbedPane.addChangeListener(new ChangeListener() {
-			
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				int index = tabbedPane.getSelectedIndex();
-				if(index == 1) {
-					tabbedPane.setTabComponentAt(1, new GDThongKe());
-					tabbedPane.setTitleAt(1, "Giao dien ");
-				}
-			}
-		});
-		
-		contentPane.add(tabbedPane);
 		
 		JLabel lblNewLabel = new JLabel("Công Ty Du Lịch 17");
 		lblNewLabel.setForeground(new Color(147, 112, 219));
@@ -124,9 +115,34 @@ public class GDChinh extends JFrame {
 		lblNewLabel_2.setBounds(993, 30, 88, 76);
 		contentPane.add(lblNewLabel_2);
 		
+		panel = new JPanel();
+		panel.setBounds(10, 153, 1250, 660);
+		contentPane.add(panel);
+		
+		btnThongKe = new JButton("Đặt Tour");
+	 
+				
+		btnThongKe.setBackground(new Color(127, 255, 212));
+		btnThongKe.setBounds(26, 106, 106, 40);
+		contentPane.add(btnThongKe);
+		
+		btnThngKe = new JButton("Thống kê");
+		btnThngKe.setBackground(new Color(127, 255, 212));
+		btnThngKe.setBounds(132, 106, 106, 40);
+		contentPane.add(btnThngKe);
+		
+		btnQLNV = new JButton("Quản lý nhan viên");
+		btnQLNV.setBackground(new Color(127, 255, 212));
+		btnQLNV.setBounds(238, 106, 106, 40);
+		contentPane.add(btnQLNV);
+		
 		clock();
 		ngay();
 		//checkQuyen();
+		ChangeFrame(new GDThongKe());
+		btnQLNV.addActionListener(this);
+		btnThngKe.addActionListener(this);
+		btnThongKe.addActionListener(this);
 	}
 	
 	public void clock() {
@@ -171,5 +187,26 @@ public class GDChinh extends JFrame {
 		}else {
 			lblNhanVien.setText("Quản Lý : "+nhanVien.getTenNV());
 		}
+	}
+	private void ChangeFrame(JPanel panel1) {
+		panel.removeAll();
+		panel.setLayout(new CardLayout());
+		panel.add(panel1);
+		panel.validate();
+		panel.repaint();
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		Object object = e.getSource();
+		if (object == btnThongKe) {
+			ChangeFrame(new GDThongKe());
+			
+		}
+		if (object == btnQLNV) {
+			ChangeFrame(new GDQuanLyTour());
+		}
+		
 	}
 }

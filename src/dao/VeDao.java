@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import connectDB.ConnectDB;
+
 import entity.KhachHang;
 
 import entity.NhanVien;
@@ -62,6 +63,37 @@ public class VeDao {
 			}
 		}
 		return dsVe;
+	}
+	
+	public boolean insert(Ve ve) {
+		ConnectDB.getInstance();
+		Connection con = ConnectDB.getConnection();
+		PreparedStatement stmt = null;
+		int n =0;
+		try {
+			String sql =  " insert into [dbo].[Ve] ([soNguoiLon],[soTreEm],[trangThai],[ngayDat],[maTour],[maKH],[maNV]) "
+					
+					+ "values(?,?,?,?,?,?,?)";
+			stmt= con.prepareStatement(sql);
+			stmt.setInt(1,ve.getSoNguoiLon());
+			stmt.setInt(2,ve.getSoTreEm());
+			stmt.setInt(3,ve.getTrangThai());
+			stmt.setDate(4, new java.sql.Date(ve.getNgayDat().getTime()));			
+			stmt.setInt(5,ve.getTour().getMaTour());
+			stmt.setInt(6,ve.getKhachHang().getMaKH());
+			stmt.setInt(7, ve.getNhanVien().getMaNV());
+			n= stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+			return n>0;	
 	}
 	public ArrayList<Ve> getVeByNameNhanVien(String name) {
 		ArrayList<Ve> dsVe = new ArrayList<Ve>();
