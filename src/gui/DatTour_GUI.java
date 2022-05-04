@@ -11,6 +11,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -219,7 +220,7 @@ public class DatTour_GUI extends JPanel implements ActionListener, MouseListener
 		//JPanel Xac nhan hoac huy thong tin
 		btnXacNhan = new JButton("Xác nhận");
 		btnXacNhan.setHorizontalTextPosition(SwingConstants.LEFT);
-		btnXacNhan.setIcon(new ImageIcon("D:\\JavaProjects\\HSK_QLTour\\img\\icon-xn.png"));
+		btnXacNhan.setIcon(new ImageIcon("img/icon-xn.png"));
 		btnXacNhan.setFont(new Font("Arial", Font.PLAIN, 17));
 		btnXacNhan.setBounds(53, 288, 150, 36);
 		btnXacNhan.setForeground(new Color(24, 140, 166));
@@ -229,7 +230,7 @@ public class DatTour_GUI extends JPanel implements ActionListener, MouseListener
 		
 		btnHuy = new JButton("Huỷ ");
 		btnHuy.setHorizontalTextPosition(SwingConstants.LEFT);
-		btnHuy.setIcon(new ImageIcon("D:\\JavaProjects\\HSK_QLTour\\img\\icon-huy.png"));
+		btnHuy.setIcon(new ImageIcon("img/icon-huy.png"));
 		btnHuy.setFont(new Font("Arial", Font.PLAIN, 17));
 		btnHuy.setBounds(224, 288, 135, 36);
 		btnHuy.setForeground(new Color(24, 140, 166));
@@ -287,7 +288,7 @@ public class DatTour_GUI extends JPanel implements ActionListener, MouseListener
 		pnLoc.add(cbboxNam);
 		
 		btnLoc = new JButton("Lọc");
-		btnLoc.setIcon(new ImageIcon("D:\\JavaProjects\\HSK_QLTour\\img\\icon-loc.png"));
+		btnLoc.setIcon(new ImageIcon("img/icon-loc.png"));
 		btnLoc.setBounds(592, 6, 107, 38);
 		btnLoc.setForeground(new Color(24, 140, 166));
 		btnLoc.setBackground(new Color(162, 226, 242));
@@ -310,7 +311,7 @@ public class DatTour_GUI extends JPanel implements ActionListener, MouseListener
 		
 		JLabel lblNgayKhoiHanh = new JLabel("Ngày khởi hành:");
 		lblNgayKhoiHanh.setForeground(new Color(148, 0, 211));
-		lblNgayKhoiHanh.setIcon(new ImageIcon("D:\\JavaProjects\\HSK_QLTour\\img\\icon-ngay.png"));
+		lblNgayKhoiHanh.setIcon(new ImageIcon("img/icon-ngay.png"));
 		lblNgayKhoiHanh.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblNgayKhoiHanh.setBounds(10, 54, 160, 42);
 //		lblNgayKhoiHanh.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource("icon-ngay.png"))));
@@ -318,7 +319,7 @@ public class DatTour_GUI extends JPanel implements ActionListener, MouseListener
 		
 		JLabel lblThoiGian = new JLabel("Thời Gian:");
 		lblThoiGian.setForeground(new Color(148, 0, 211));
-		lblThoiGian.setIcon(new ImageIcon("D:\\JavaProjects\\HSK_QLTour\\img\\icon-thoigian.png"));
+		lblThoiGian.setIcon(new ImageIcon("img/icon-thoigian.png"));
 		lblThoiGian.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblThoiGian.setBounds(10, 95, 124, 34);
 //		lblThoiGian.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource("icon-thoigian.png"))));
@@ -326,7 +327,7 @@ public class DatTour_GUI extends JPanel implements ActionListener, MouseListener
 		
 		JLabel lblGiaNL = new JLabel("Giá người lớn:");
 		lblGiaNL.setForeground(new Color(148, 0, 211));
-		lblGiaNL.setIcon(new ImageIcon("D:\\JavaProjects\\HSK_QLTour\\img\\icon-nguoilon.png"));
+		lblGiaNL.setIcon(new ImageIcon("img/icon-nguoilon.png"));
 		lblGiaNL.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblGiaNL.setBounds(10, 135, 141, 34);
 //		lblGiaNL.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource("icon-nguoilon.png"))));
@@ -334,7 +335,7 @@ public class DatTour_GUI extends JPanel implements ActionListener, MouseListener
 		
 		JLabel lblGiaTE = new JLabel("Giá trẻ em:");
 		lblGiaTE.setForeground(new Color(148, 0, 211));
-		lblGiaTE.setIcon(new ImageIcon("D:\\JavaProjects\\HSK_QLTour\\img\\icon-treem.png"));
+		lblGiaTE.setIcon(new ImageIcon("img/icon-treem.png"));
 		lblGiaTE.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblGiaTE.setBounds(10, 174, 141, 34);
 //		lblGiaTE.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource("icon-treem.png"))));
@@ -342,14 +343,14 @@ public class DatTour_GUI extends JPanel implements ActionListener, MouseListener
 		
 		JLabel lblTong = new JLabel("TỔNG");
 		lblTong.setForeground(new Color(148, 0, 211));
-		lblTong.setIcon(new ImageIcon("D:\\JavaProjects\\HSK_QLTour\\img\\icon-tong.png"));
+		lblTong.setIcon(new ImageIcon("img/icon-tong.png"));
 		lblTong.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblTong.setBounds(10, 210, 113, 34);
 //		lblTong.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource("icon-tong.png"))));
 		pnThanhToan.add(lblTong);
 		
 		btnThanhToan = new JButton("Thanh Toán");
-		btnThanhToan.setIcon(new ImageIcon("D:\\JavaProjects\\HSK_QLTour\\img\\icon-tt.png"));
+		btnThanhToan.setIcon(new ImageIcon("img/icon-tt.png"));
 		btnThanhToan.setForeground(new Color(24, 140, 166));
 		btnThanhToan.setBackground(new Color(162, 226, 242));
 		btnThanhToan.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -484,6 +485,7 @@ public class DatTour_GUI extends JPanel implements ActionListener, MouseListener
 					}else {
 						boolean rs = veDao.insert(getVeFromTable());
 						if(rs == true) {
+							DecimalFormat df = new DecimalFormat("###,###,###");
 							errThanhToan.setText("");
 							lblTenTour.setText(tableModel.getValueAt(row, 1).toString());
 							lblTTNgay.setText(tableModel.getValueAt(row, 2).toString());
@@ -491,14 +493,14 @@ public class DatTour_GUI extends JPanel implements ActionListener, MouseListener
 						
 							double giaNL = Double.parseDouble( tableModel.getValueAt(row, 5).toString());
 							double giaTongNL = giaNL*Integer.parseInt(txtSLNguoiLon.getText());
-							lblTTGiaNL.setText(giaTongNL+"");
+							lblTTGiaNL.setText(df.format(giaTongNL)+"");
 						
 							double giaTE = Double.parseDouble(tableModel.getValueAt(row, 6).toString());
 							double giaTongTE = giaTE * Integer.parseInt(txtSlTreEm.getText());
-							lblTTTTGiaTE.setText(giaTongTE+"");
+							lblTTTTGiaTE.setText(df.format(giaTongTE)+"");
 						
 							double giaTong = giaTongNL + giaTongTE;
-							lblTTTong.setText(giaTong+"");
+							lblTTTong.setText(df.format(giaTong)+"");
 							
 							Tour tour = tour_DAO.getTourTheoMa(tableModel.getValueAt(row, 0).toString());
 							tAreaMoTa.setText(tour.getMoTa());
