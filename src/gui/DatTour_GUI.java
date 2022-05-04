@@ -765,6 +765,7 @@ public class DatTour_GUI extends JPanel implements ActionListener, MouseListener
 		}
 
 		private boolean validDataKhachHang() {
+			dsKH = khachHang_DAO.getALLKhachHang();
 			if (dsKH == null || dsKH.size() <= 0)
 				return false;
 			String tenKH = txtCMND.getText();

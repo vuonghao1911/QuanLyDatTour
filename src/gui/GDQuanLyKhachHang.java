@@ -24,6 +24,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -66,10 +67,10 @@ public class GDQuanLyKhachHang extends JPanel implements ActionListener, MouseLi
 
 	private void autoLoadDatabase() {
 		KhachHang_DAO customerDAO = new KhachHang_DAO();
-		List<KhachHang> customers = customerDAO.getAll();
+		List<KhachHang> customers = customerDAO.getALLKhachHang();
 		for (KhachHang customer : customers) {
 			defaultTableModel.addRow(new Object[] { customer.getMaKH(), customer.getTenKH(), customer.getSdt(),
-					customer.getGioiTinh(), customer.getCmnd(), customer.getMaVe() });
+					customer.getGioiTinh(), customer.getCmnd() });
 		}
 	}
 
@@ -160,9 +161,13 @@ public class GDQuanLyKhachHang extends JPanel implements ActionListener, MouseLi
 		pnlTask.add(btnUpdate = new JButton("Cập Nhật"));
 		pnlTask.add(btnDelete = new JButton("Xóa"));
 
-		String[] header = { "Mã Khách Hàng", "Tên Khách Hàng", "Số Điện Thoại", "Giới Tính", "Mã Định Danh", "Mã Vé" };
+		String[] header = { "Mã Khách Hàng", "Tên Khách Hàng", "Số Điện Thoại", "Giới Tính", "Mã Định Danh" };
 		defaultTableModel = new DefaultTableModel(header, 0);
 		jpnGDQuanLyKH.add(new JScrollPane(tblCustomer = new JTable(defaultTableModel)));
+		JTableHeader tableHeader = tblCustomer.getTableHeader();
+		tableHeader.setBackground(new Color(108, 166, 205));
+		tableHeader.setFont(new Font("Arial", Font.BOLD, 14));
+		tableHeader.setForeground(Color.white);
 
 		
 
@@ -206,7 +211,7 @@ public class GDQuanLyKhachHang extends JPanel implements ActionListener, MouseLi
 		tfTel.setText(String.valueOf(defaultTableModel.getValueAt(currentPostition, 2)));
 		cbxGender.setSelectedItem(String.valueOf(defaultTableModel.getValueAt(currentPostition, 3)));
 		tfCode.setText(String.valueOf(defaultTableModel.getValueAt(currentPostition, 4)));
-		tfTourCode.setText(String.valueOf(defaultTableModel.getValueAt(currentPostition, 5)));
+		//tfTourCode.setText(String.valueOf(defaultTableModel.getValueAt(currentPostition, 5)));
 	}
 
 	@Override
