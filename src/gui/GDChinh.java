@@ -11,6 +11,11 @@ import javax.swing.border.EmptyBorder;
 
 import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 
+import dao.NhanVien_DAO;
+import entity.NhanVien;
+import entity.TaiKhoan;
+import shareData.ShareData;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTabbedPane;
@@ -18,6 +23,7 @@ import java.awt.Font;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -26,6 +32,7 @@ public class GDChinh extends JFrame {
 	private JPanel contentPane;
 	private JLabel lblGio;
 	private JLabel lblNgay;
+	private JLabel lblNhanVien;
 
 	/**
 	 * Launch the application.
@@ -87,11 +94,11 @@ public class GDChinh extends JFrame {
 		lblNgay.setBounds(574, 10, 147, 34);
 		contentPane.add(lblNgay);
 		
-		JLabel lblNewLabel_1 = new JLabel("Nhân Viên : Tiến Đạt");
-		lblNewLabel_1.setForeground(new Color(178, 34, 34));
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1.setBounds(1071, 60, 205, 34);
-		contentPane.add(lblNewLabel_1);
+		lblNhanVien = new JLabel("Nhân Viên : Tiến Đạt");
+		lblNhanVien.setForeground(new Color(178, 34, 34));
+		lblNhanVien.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNhanVien.setBounds(1071, 60, 205, 34);
+		contentPane.add(lblNhanVien);
 		
 		lblGio = new JLabel("12/2");
 		lblGio.setForeground(new Color(123, 104, 238));
@@ -106,6 +113,7 @@ public class GDChinh extends JFrame {
 		
 		clock();
 		ngay();
+		//checkQuyen();
 	}
 	
 	public void clock() {
@@ -139,5 +147,16 @@ public class GDChinh extends JFrame {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		Date date = new Date();
 		lblNgay.setText(sdf.format(date));
+	}
+	public void checkQuyen() {
+		
+		NhanVien_DAO nvDao= new NhanVien_DAO();
+		NhanVien nhanVien = nvDao.findByID(String.valueOf(ShareData.taiKhoan.getTenDN()));
+		
+		if (ShareData.taiKhoan.getQuyen()==1) {
+			lblNhanVien.setText("Nhân Viên : "+nhanVien.getTenNV() );
+		}else {
+			lblNhanVien.setText("Quản Lý : "+nhanVien.getTenNV());
+		}
 	}
 }

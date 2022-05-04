@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -20,8 +21,12 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
+
+import connectDB.ConnectDB;
 import dao.TaiKhoanDao;
 import entity.TaiKhoan;
+import shareData.ShareData;
 
 public class DangNhapGUI extends JFrame  implements MouseListener, ActionListener{
 
@@ -39,9 +44,14 @@ public class DangNhapGUI extends JFrame  implements MouseListener, ActionListene
 		setResizable(false);
 		
 		
+		try {
+			ConnectDB.getInstance().connect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
 		JPanel pnDangNhap = new JPanel();
 		pnDangNhap.setLayout(new BoxLayout(pnDangNhap, BoxLayout.Y_AXIS));
-		
+		FlatCyanLightIJTheme.setup();
 //		Tiêu đề 
 		JPanel pnTieuDe = new JPanel();
 		pnTieuDe.setLayout(new FlowLayout());
@@ -120,10 +130,10 @@ pnDangNhap.add(pncheck);
         			String pass = txtMatKhau.getText();
         			if(pass.equals(tk.getMaKhau())) {
         				//dang nhap thanh cong
-        				JOptionPane.showMessageDialog(lblMatKhau, "sucessfully" );
-//viet code tiep o day
-        				
-        				
+//viet code tiep o day			
+        					ShareData.taiKhoan = tk;
+        					dispose();
+        					new GDChinh().setVisible(true); 						
         			}
         			else {
         				//thong bao sai mat khau
