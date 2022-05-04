@@ -75,6 +75,7 @@ public class GDChinh extends JFrame {
 		tabbedPane.addTab(" Quản Lý Tour", new ImageIcon("img/travel-schedule.png"), pnKhachHang);
 		//pnKhachHang.setPreferredSize(new Dimension(tabbedPane.getWidth(),tabbedPane.getHeight()));
 		tabbedPane.addTab("Thống Kê",new ImageIcon("img/graphical-report.png"), new GDThongKe());
+<<<<<<< HEAD
 		tabbedPane.addChangeListener(new ChangeListener() {
 			
 			@Override
@@ -87,6 +88,10 @@ public class GDChinh extends JFrame {
 			}
 		});
 		
+=======
+		tabbedPane.addTab(" Quản Lý Khách Hàng", new ImageIcon("img/travel-schedule.png"), new GDQuanLyKhachHang());
+		tabbedPane.addTab(" Quản Lý Nhân Viên", new ImageIcon("img/travel-schedule.png"), new GDQuanLyNhanVien());
+>>>>>>> ed7f122d46670aa868e273662b15290436f85c71
 		contentPane.add(tabbedPane);
 		
 		JLabel lblNewLabel = new JLabel("Công Ty Du Lịch 17");

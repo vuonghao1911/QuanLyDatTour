@@ -61,7 +61,7 @@ public class Tour_DAO {
 		PreparedStatement preparedStatement = null;
 		Statement statement = connection.createStatement();
 		try {
-			String sqlQueryCommand = "INSERT INTO Tour(maTour, tenTour, diemDen, diemXuatPhat, thoiGian, ngayKhoiHanh, moTa, gia, giaTreEm, soLuong) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String sqlQueryCommand = "INSERT Tour VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			preparedStatement = connection.prepareStatement(sqlQueryCommand);
 			preparedStatement.setInt(1, tour.getMaTour());
 			preparedStatement.setString(2, tour.getTenTour());
