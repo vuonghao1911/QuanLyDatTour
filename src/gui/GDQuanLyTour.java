@@ -287,9 +287,9 @@ public class GDQuanLyTour extends JPanel implements ActionListener,MouseListener
 			DocDuLieuVaoTable(tour_DAO.getAllTour());
 		}
 		
-		public static void main(String[] args) {
-			new GDQuanLyTour().setVisible(true);
-		}
+//		public static void main(String[] args) {
+//			new GDQuanLyTour().setVisible(true);
+//		}
 		
 		
 		@Override
@@ -424,7 +424,6 @@ public class GDQuanLyTour extends JPanel implements ActionListener,MouseListener
 			
 		}
 		
-<<<<<<< HEAD
 //		private boolean isValidField() {
 //			try {
 //				Integer.parseInt(txtMaTour.getText());
@@ -453,7 +452,7 @@ public class GDQuanLyTour extends JPanel implements ActionListener,MouseListener
 						,tour.getMoTa(),tour.getGia(),tour.getGiaTreEm(),tour.getSoLuong()});
 			}
 		}
->>>>>>> a00eb80d941f1dc77009526d052c86d7f6e20c6f
+
 
 	}
 
