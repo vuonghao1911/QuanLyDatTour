@@ -27,12 +27,15 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.border.BevelBorder;
+import javax.swing.SwingConstants;
 
 import connectDB.ConnectDB;
 import dao.Tour_DAO;
 import entity.Tour;
 
-public class DatTour_GUI extends JFrame implements ActionListener, MouseListener{
+public class DatTour_GUI extends JPanel implements ActionListener, MouseListener{
 	/**
 	 * 
 	 */
@@ -76,7 +79,7 @@ public class DatTour_GUI extends JFrame implements ActionListener, MouseListener
 	
 	public DatTour_GUI() {
 		
-		//ket noi SQL
+//		//ket noi SQL
 		try {
 			ConnectDB.getInstance().connect();
 		} catch (SQLException e) {
@@ -84,70 +87,81 @@ public class DatTour_GUI extends JFrame implements ActionListener, MouseListener
 		}	
 		
 		// -------------------------------------------
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setResizable(false);
+		//setDefaultCloseOperation(EXIT_ON_CLOSE);
+	//	setResizable(false);
 		setBounds(100, 100, 1250, 700);
+		setLayout(null);
 		contentPane = new JPanel();
+		contentPane.setBounds(0, 1, 1250, 665);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		//setContentPane(contentPane);
+		add(contentPane);
 		contentPane.setLayout(null);		
 		JLabel lblNewLabel = new JLabel("Đặt Tour");
-		lblNewLabel.setForeground(Color.RED);
-		lblNewLabel.setBounds(493, 10, 166, 47);
-		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 35));
+		lblNewLabel.setForeground(new Color(0, 206, 209));
+		lblNewLabel.setBounds(545, 0, 222, 47);
+		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 38));
 		contentPane.add(lblNewLabel);
 		
 		// -------------------------------------------
 		//JPanel nhap thong tin khach hang
 		JPanel pnNhapThongTinKH = new JPanel();
-		pnNhapThongTinKH.setBorder(new LineBorder(new Color(0, 0, 0)));
+		pnNhapThongTinKH.setBorder(new LineBorder(new Color(221, 160, 221)));
 		pnNhapThongTinKH.setBounds(10, 21, 420, 257);
 		contentPane.add(pnNhapThongTinKH);
 		pnNhapThongTinKH.setLayout(null);
 		
 		JLabel lblCMND = new JLabel("CMND: ");
+		lblCMND.setForeground(new Color(148, 0, 211));
 		lblCMND.setBounds(10, 16, 71, 15);
 		pnNhapThongTinKH.add(lblCMND);
-		lblCMND.setFont(new Font("Arial", Font.BOLD, 18));
+		lblCMND.setFont(new Font("Arial", Font.PLAIN, 18));
 		
 		txtCMND = new JTextField();
-		txtCMND.setText("123456789");
-		txtCMND.setFont(new Font("Arial", Font.PLAIN, 16));
+		txtCMND.setBackground(new Color(241, 233, 233));
+		txtCMND.setText("");
+		txtCMND.setFont(new Font("Arial", Font.PLAIN, 14));
 		txtCMND.setBounds(141, 10, 240, 23);
 		pnNhapThongTinKH.add(txtCMND);
 		txtCMND.setColumns(10);
 		
 		JLabel lblHoTen = new JLabel("Họ và tên: ");
+		lblHoTen.setForeground(new Color(148, 0, 211));
 		lblHoTen.setBounds(10, 41, 126, 27);
 		pnNhapThongTinKH.add(lblHoTen);
-		lblHoTen.setFont(new Font("Arial", Font.BOLD, 18));
+		lblHoTen.setFont(new Font("Arial", Font.PLAIN, 18));
 		
 		txtHoTen = new JTextField();
-		txtHoTen.setText("Tran Thi");
-		txtHoTen.setFont(new Font("Arial", Font.PLAIN, 16));
+		txtHoTen.setBackground(new Color(241, 233, 233));
+		txtHoTen.setText("");
+		txtHoTen.setFont(new Font("Arial", Font.PLAIN, 14));
 		txtHoTen.setBounds(141, 40, 240, 23);
 		pnNhapThongTinKH.add(txtHoTen);
 		txtHoTen.setColumns(10);
 		
 		JLabel lblSLNguoiLon = new JLabel("SL người lớn:");
+		lblSLNguoiLon.setForeground(new Color(148, 0, 211));
 		lblSLNguoiLon.setBounds(10, 138, 137, 32);
 		pnNhapThongTinKH.add(lblSLNguoiLon);
-		lblSLNguoiLon.setFont(new Font("Arial", Font.BOLD, 18));
+		lblSLNguoiLon.setFont(new Font("Arial", Font.PLAIN, 18));
 		
 		txtSLNguoiLon = new JTextField();
-		txtSLNguoiLon.setText("3");
-		txtSLNguoiLon.setFont(new Font("Arial", Font.PLAIN, 16));
+		txtSLNguoiLon.setBackground(new Color(241, 233, 233));
+		txtSLNguoiLon.setText("");
+		txtSLNguoiLon.setFont(new Font("Arial", Font.PLAIN, 14));
 		txtSLNguoiLon.setBounds(141, 140, 240, 23);
 		pnNhapThongTinKH.add(txtSLNguoiLon);
 		txtSLNguoiLon.setColumns(10);
 		
 		JLabel lblSLTreEM = new JLabel("SL Trẻ em:");
+		lblSLTreEM.setForeground(new Color(148, 0, 211));
 		lblSLTreEM.setBounds(10, 174, 102, 33);
 		pnNhapThongTinKH.add(lblSLTreEM);
-		lblSLTreEM.setFont(new Font("Arial", Font.BOLD, 18));
+		lblSLTreEM.setFont(new Font("Arial", Font.PLAIN, 18));
 		
 		txtSlTreEm = new JTextField();
-		txtSlTreEm.setFont(new Font("Arial", Font.PLAIN, 16));
+		txtSlTreEm.setBackground(new Color(241, 233, 233));
+		txtSlTreEm.setFont(new Font("Arial", Font.PLAIN, 14));
 		txtSlTreEm.setBounds(141, 177, 240, 23);
 		pnNhapThongTinKH.add(txtSlTreEm);
 		txtSlTreEm.setColumns(10);
@@ -159,23 +173,27 @@ public class DatTour_GUI extends JFrame implements ActionListener, MouseListener
 		errNhapThongTin.setFont(new Font("Arial", Font.ITALIC, 15));
 		
 		JLabel lblGioiTinh = new JLabel("Giới tính:");
-		lblGioiTinh.setFont(new Font("Arial", Font.BOLD, 18));
+		lblGioiTinh.setForeground(new Color(148, 0, 211));
+		lblGioiTinh.setFont(new Font("Arial", Font.PLAIN, 18));
 		lblGioiTinh.setBounds(10, 106, 126, 27);
 		pnNhapThongTinKH.add(lblGioiTinh);
 		
 		JLabel lblSDT = new JLabel("Số điện thoại");
-		lblSDT.setFont(new Font("Arial", Font.BOLD, 18));
+		lblSDT.setForeground(new Color(148, 0, 211));
+		lblSDT.setFont(new Font("Arial", Font.PLAIN, 18));
 		lblSDT.setBounds(10, 74, 126, 27);
 		pnNhapThongTinKH.add(lblSDT);
 		
 		txtSDT = new JTextField();
-		txtSDT.setFont(new Font("Arial", Font.PLAIN, 16));
+		txtSDT.setBackground(new Color(241, 233, 233));
+		txtSDT.setFont(new Font("Arial", Font.PLAIN, 14));
 		txtSDT.setColumns(10);
 		txtSDT.setBounds(141, 75, 240, 23);
 		pnNhapThongTinKH.add(txtSDT);
 		
 		txtGioiTinh = new JTextField();
-		txtGioiTinh.setFont(new Font("Arial", Font.PLAIN, 16));
+		txtGioiTinh.setBackground(new Color(241, 233, 233));
+		txtGioiTinh.setFont(new Font("Arial", Font.PLAIN, 14));
 		txtGioiTinh.setColumns(10);
 		txtGioiTinh.setBounds(141, 107, 240, 23);
 		pnNhapThongTinKH.add(txtGioiTinh);
@@ -183,14 +201,22 @@ public class DatTour_GUI extends JFrame implements ActionListener, MouseListener
 		// -------------------------------------------
 		//JPanel Xac nhan hoac huy thong tin
 		btnXacNhan = new JButton("Xác nhận");
+		btnXacNhan.setHorizontalTextPosition(SwingConstants.LEFT);
+		btnXacNhan.setIcon(new ImageIcon("img/icon-xn.png"));
 		btnXacNhan.setFont(new Font("Arial", Font.PLAIN, 17));
 		btnXacNhan.setBounds(53, 288, 150, 36);
+		btnXacNhan.setForeground(new Color(24, 140, 166));
+		btnXacNhan.setBackground(new Color(162, 226, 242));
 //		btnXacNhan.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource("icon-xn.png"))));
 		contentPane.add(btnXacNhan);
 		
-		btnHuy = new JButton("Huỷ");
+		btnHuy = new JButton("Huỷ ");
+		btnHuy.setHorizontalTextPosition(SwingConstants.LEFT);
+		btnHuy.setIcon(new ImageIcon("img/icon-huy.png"));
 		btnHuy.setFont(new Font("Arial", Font.PLAIN, 17));
 		btnHuy.setBounds(224, 288, 135, 36);
+		btnHuy.setForeground(new Color(24, 140, 166));
+		btnHuy.setBackground(new Color(162, 226, 242));
 //		btnHuy.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource("icon-huy.png"))));
 		contentPane.add(btnHuy);
 		
@@ -203,12 +229,14 @@ public class DatTour_GUI extends JFrame implements ActionListener, MouseListener
 		pnLoc.setLayout(null);
 		
 		JLabel lblGia = new JLabel("Giá Tour:");
+		lblGia.setForeground(new Color(148, 0, 211));
 		lblGia.setBounds(10, 10, 85, 28);
 		pnLoc.add(lblGia);
-		lblGia.setFont(new Font("Arial", Font.PLAIN, 20));
+		lblGia.setFont(new Font("Arial", Font.PLAIN, 17));
 		
 		dfcbboxLocGia = new DefaultComboBoxModel<String>(new String[] {"Từ 1tr-2tr","Từ 2tr-5tr"});
 		cbboxGia = new JComboBox(dfcbboxLocGia);
+		cbboxGia.setBackground(new Color(241, 233, 233));
 		cbboxGia.setSelectedIndex(-1);
 		cbboxGia.setBounds(101, 11, 134, 32);
 		
@@ -216,29 +244,36 @@ public class DatTour_GUI extends JFrame implements ActionListener, MouseListener
 		cbboxGia.setFont(new Font("Arial", Font.PLAIN, 20));
 		
 		JLabel lblNgayDi = new JLabel("Ngày đi:");
+		lblNgayDi.setForeground(new Color(148, 0, 211));
 		lblNgayDi.setBounds(245, 10, 82, 29);
 		pnLoc.add(lblNgayDi);
-		lblNgayDi.setFont(new Font("Arial", Font.PLAIN, 20));
+		lblNgayDi.setFont(new Font("Arial", Font.PLAIN, 17));
 		
 		DefaultComboBoxModel<Integer> dfcbboxNgay = new DefaultComboBoxModel<Integer>(phatSinhNgay());
 		cbboxNgay = new JComboBox(dfcbboxNgay);
+		cbboxNgay.setBackground(new Color(241, 233, 233));
 		cbboxNgay.setSelectedIndex(-1);
 		cbboxNgay.setBounds(330, 10, 67, 32);
 		pnLoc.add(cbboxNgay);
 		
 		cbboxThang = new JComboBox(new DefaultComboBoxModel<Integer>(new Integer[] {1,2,3,4,5,6,7,8,9,10,11,12}));
+		cbboxThang.setBackground(new Color(241, 233, 233));
 		cbboxThang.setBounds(411, 11, 67, 32);
 		cbboxThang.setSelectedIndex(-1);
 		pnLoc.add(cbboxThang);
 		
 		DefaultComboBoxModel<Integer> dfcbboxNam = new DefaultComboBoxModel<Integer>(phatSinhNam());
 		cbboxNam = new JComboBox(dfcbboxNam);
+		cbboxNam.setBackground(new Color(241, 233, 233));
 		cbboxNam.setSelectedIndex(-1);
 		cbboxNam.setBounds(488, 11, 85, 32);
 		pnLoc.add(cbboxNam);
 		
 		btnLoc = new JButton("Lọc");
+		btnLoc.setIcon(new ImageIcon("img/icon-loc.png"));
 		btnLoc.setBounds(592, 6, 107, 38);
+		btnLoc.setForeground(new Color(24, 140, 166));
+		btnLoc.setBackground(new Color(162, 226, 242));
 //		btnLoc.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource("icon-loc.png"))));
 		pnLoc.add(btnLoc);
 		btnLoc.setFont(new Font("Arial", Font.PLAIN, 17));
@@ -252,73 +287,91 @@ public class DatTour_GUI extends JFrame implements ActionListener, MouseListener
 		// -------------------------------------------
 		//JPanel Hien thi thong tin da lua chon va xac nhan thanh toan
 		JPanel pnThanhToan = new JPanel();
-		pnThanhToan.setBounds(10, 372, 420, 291);
+		pnThanhToan.setBounds(10, 372, 420, 288);
 		contentPane.add(pnThanhToan);
 		pnThanhToan.setLayout(null);
 		
 		JLabel lblNgayKhoiHanh = new JLabel("Ngày khởi hành:");
+		lblNgayKhoiHanh.setForeground(new Color(148, 0, 211));
+		lblNgayKhoiHanh.setIcon(new ImageIcon("img/icon-ngay.png"));
 		lblNgayKhoiHanh.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblNgayKhoiHanh.setBounds(10, 54, 160, 42);
 //		lblNgayKhoiHanh.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource("icon-ngay.png"))));
 		pnThanhToan.add(lblNgayKhoiHanh);
 		
 		JLabel lblThoiGian = new JLabel("Thời Gian:");
+		lblThoiGian.setForeground(new Color(148, 0, 211));
+		lblThoiGian.setIcon(new ImageIcon("img/icon-thoigian.png"));
 		lblThoiGian.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblThoiGian.setBounds(10, 95, 124, 34);
 //		lblThoiGian.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource("icon-thoigian.png"))));
 		pnThanhToan.add(lblThoiGian);
 		
 		JLabel lblGiaNL = new JLabel("Giá người lớn:");
+		lblGiaNL.setForeground(new Color(148, 0, 211));
+		lblGiaNL.setIcon(new ImageIcon("img/icon-nguoilon.png"));
 		lblGiaNL.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblGiaNL.setBounds(10, 135, 141, 34);
 //		lblGiaNL.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource("icon-nguoilon.png"))));
 		pnThanhToan.add(lblGiaNL);
 		
 		JLabel lblGiaTE = new JLabel("Giá trẻ em:");
+		lblGiaTE.setForeground(new Color(148, 0, 211));
+		lblGiaTE.setIcon(new ImageIcon("img/icon-treem.png"));
 		lblGiaTE.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblGiaTE.setBounds(10, 174, 141, 34);
 //		lblGiaTE.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource("icon-treem.png"))));
 		pnThanhToan.add(lblGiaTE);
 		
-		JLabel lblTong = new JLabel("Tổng:");
+		JLabel lblTong = new JLabel("TỔNG");
+		lblTong.setForeground(new Color(148, 0, 211));
+		lblTong.setIcon(new ImageIcon("img/icon-tong.png"));
 		lblTong.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblTong.setBounds(10, 210, 113, 34);
 //		lblTong.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource("icon-tong.png"))));
 		pnThanhToan.add(lblTong);
 		
 		btnThanhToan = new JButton("Thanh Toán");
+		btnThanhToan.setIcon(new ImageIcon("img/icon-tt.png"));
+		btnThanhToan.setForeground(new Color(24, 140, 166));
+		btnThanhToan.setBackground(new Color(162, 226, 242));
 		btnThanhToan.setFont(new Font("Arial", Font.PLAIN, 16));
-		btnThanhToan.setBounds(120, 246, 174, 35);
+		btnThanhToan.setBounds(119, 243, 174, 35);
 //		btnThanhToan.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource("icon-tt.png"))));
 		pnThanhToan.add(btnThanhToan);
 		
 		lblTTNgay = new JLabel();
+		lblTTNgay.setForeground(new Color(148, 0, 211));
 		lblTTNgay.setFont(new Font("Arial", Font.ITALIC, 18));
 		lblTTNgay.setBounds(180, 54, 230, 33);
 		pnThanhToan.add(lblTTNgay);
 		
 		lblTTThoiGian = new JLabel();
+		lblTTThoiGian.setForeground(new Color(148, 0, 211));
 		lblTTThoiGian.setFont(new Font("Arial", Font.ITALIC, 18));
 		lblTTThoiGian.setBounds(174, 95, 236, 33);
 		pnThanhToan.add(lblTTThoiGian);
 		
 		lblTTGiaNL = new JLabel();
+		lblTTGiaNL.setForeground(new Color(148, 0, 211));
 		lblTTGiaNL.setFont(new Font("Arial", Font.ITALIC, 18));
 		lblTTGiaNL.setBounds(161, 139, 236, 33);
 		pnThanhToan.add(lblTTGiaNL);
 		
 		lblTTTTGiaTE = new JLabel();
+		lblTTTTGiaTE.setForeground(new Color(148, 0, 211));
 		lblTTTTGiaTE.setFont(new Font("Arial", Font.ITALIC, 18));
 		lblTTTTGiaTE.setBounds(161, 175, 236, 33);
 		pnThanhToan.add(lblTTTTGiaTE);
 		
 		lblTTTong = new JLabel();
-		lblTTTong.setFont(new Font("Arial", Font.ITALIC, 18));
+		lblTTTong.setForeground(new Color(148, 0, 211));
+		lblTTTong.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 18));
 		lblTTTong.setBounds(133, 206, 284, 33);
 		pnThanhToan.add(lblTTTong);
 		
 		lblTenTour = new JLabel("");
-		lblTenTour.setForeground(new Color(0, 0, 0));
+		lblTenTour.setForeground(new Color(148, 0, 211));
 		lblTenTour.setBounds(28, 10, 316, 34);
 		pnThanhToan.add(lblTenTour);
 		lblTenTour.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 20));
@@ -331,14 +384,15 @@ public class DatTour_GUI extends JFrame implements ActionListener, MouseListener
 		pnMoTa.setLayout(null);
 		
 		tAreaMoTa = new JTextArea();
-		tAreaMoTa.setBounds(0, 0, 727, 103);
+		tAreaMoTa.setBounds(-193, 0, 727, 103);
 		pnMoTa.add(tAreaMoTa);
 		tAreaMoTa.setFont(new Font("Arial", Font.PLAIN, 20));
 		
 		JLabel lblMoTa = new JLabel("Mô tả:");
+		lblMoTa.setForeground(new Color(148, 0, 211));
 		lblMoTa.setBounds(462, 516, 192, 36);
 		contentPane.add(lblMoTa);
-		lblMoTa.setFont(new Font("Arial", Font.PLAIN, 25));
+		lblMoTa.setFont(new Font("Arial", Font.PLAIN, 17));
 		String[] header = "Mã tour;Tên tour;Ngày đi;Địa điểm;Thời gian;Giá người lớn;Giá trẻ em".split(";");
 		tableModel = new DefaultTableModel(header,0);
 		
@@ -358,12 +412,18 @@ public class DatTour_GUI extends JFrame implements ActionListener, MouseListener
 		// -------------------------------------------
 		//JPanel danh sach cac tour
 		JLabel lblDanhSach = new JLabel("Danh Sách Tour:");
+		lblDanhSach.setForeground(new Color(148, 0, 211));
 		lblDanhSach.setBounds(0, 0, 267, 24);
-		lblDanhSach.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource("icon-bang.png"))));
+		//lblDanhSach.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource("icon-bang.png"))));
 		pnBang.add(lblDanhSach);
-		lblDanhSach.setFont(new Font("Arial", Font.PLAIN, 25));
+		lblDanhSach.setFont(new Font("Arial", Font.PLAIN, 17));
 		tableDanhSach = new JScrollPane(table = new JTable(tableModel));
 		tableDanhSach.setBounds(0, 30, 716, 317);
+		
+		JTableHeader tableHeader = table.getTableHeader();
+		tableHeader.setBackground(new Color(108, 166, 205));
+		tableHeader.setFont(new Font("Arial", Font.BOLD, 14));
+		tableHeader.setForeground(Color.white);
 		pnBang.add(tableDanhSach);
 		
 		errThanhToan = new JLabel("");

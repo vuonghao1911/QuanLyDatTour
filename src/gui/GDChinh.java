@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -16,10 +17,15 @@ import javax.swing.JTabbedPane;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class GDChinh extends JFrame {
 
 	private JPanel contentPane;
+	private JLabel lblGio;
+	private JLabel lblNgay;
 
 	/**
 	 * Launch the application.
@@ -42,7 +48,7 @@ public class GDChinh extends JFrame {
 	 * Create the frame.
 	 */
 	public GDChinh() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("D:\\JavaProjects\\HSK_QLTour\\img\\Group.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("img/Group.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1300, 850);
 		contentPane = new JPanel();
@@ -56,8 +62,11 @@ public class GDChinh extends JFrame {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(20, 93, 1250, 700);
 		JPanel pnKhachHang = new GDQuanLyKhachHang();
+		tabbedPane.addTab(" Đặt Tour",new ImageIcon("img/calendar.png"), new DatTour_GUI());
+		tabbedPane.addTab(" Quản Lý Tour", new ImageIcon("img/travel-schedule.png"), new GDQuanLyTour());
 		//pnKhachHang.setPreferredSize(new Dimension(tabbedPane.getWidth(),tabbedPane.getHeight()));
-		tabbedPane.addTab("thong ke", new GDThongKe());
+		tabbedPane.addTab("Thống Kê",new ImageIcon("img/graphical-report.png"), new GDThongKe());
+		
 		contentPane.add(tabbedPane);
 		
 		JLabel lblNewLabel = new JLabel("Công Ty Du Lịch 17");
@@ -72,16 +81,63 @@ public class GDChinh extends JFrame {
 		lblaCh.setBounds(20, 43, 324, 40);
 		contentPane.add(lblaCh);
 		
-		JLabel lblPhnMmQun = new JLabel("Phần Mềm Quản Lý Đặt Tour");
-		lblPhnMmQun.setForeground(new Color(123, 104, 238));
-		lblPhnMmQun.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 21));
-		lblPhnMmQun.setBounds(520, 25, 363, 34);
-		contentPane.add(lblPhnMmQun);
+		lblNgay = new JLabel("12/2");
+		lblNgay.setForeground(new Color(123, 104, 238));
+		lblNgay.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		lblNgay.setBounds(574, 10, 147, 34);
+		contentPane.add(lblNgay);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nhân Viên : Tiến Đạt");
 		lblNewLabel_1.setForeground(new Color(178, 34, 34));
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_1.setBounds(1071, 60, 205, 34);
 		contentPane.add(lblNewLabel_1);
+		
+		lblGio = new JLabel("12/2");
+		lblGio.setForeground(new Color(123, 104, 238));
+		lblGio.setFont(new Font("Tahoma", Font.ITALIC, 18));
+		lblGio.setBounds(584, 49, 147, 34);
+		contentPane.add(lblGio);
+		
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setIcon(new ImageIcon("D:\\JavaProjects\\HSK_QLTour\\img\\employee-infographic.png"));
+		lblNewLabel_2.setBounds(993, 30, 88, 76);
+		contentPane.add(lblNewLabel_2);
+		
+		clock();
+		ngay();
+	}
+	
+	public void clock() {
+		Thread a = new Thread() {
+			@SuppressWarnings("deprecation")
+			public void run() {
+				try {
+		            while (true) {
+		                Calendar calendar = Calendar.getInstance();
+		             
+						String hour = (calendar.getTime().getHours() > 9) ? 
+		                        "" + calendar.getTime().getHours() + ""
+		                        : "0" + calendar.getTime().getHours();
+		                String minute = (calendar.getTime().getMinutes() > 9) ? 
+		                        "" + calendar.getTime().getMinutes() + ""
+		                        : "0" + calendar.getTime().getMinutes();
+		                String second = (calendar.getTime().getSeconds() > 9) ? 
+		                        "" + calendar.getTime().getSeconds() + ""
+		                        : "0" + calendar.getTime().getSeconds();
+		               lblGio.setText(hour + ":" + minute + ":" + second);
+		                Thread.sleep(1000);
+		            }
+		        } catch (InterruptedException e) {
+		            e.printStackTrace();
+		        }
+			}
+		};
+		a.start();
+	}
+	public void ngay() {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		Date date = new Date();
+		lblNgay.setText(sdf.format(date));
 	}
 }
