@@ -111,7 +111,7 @@ public class GDChinh extends JFrame implements MouseListener {
 		contentPane.add(lblGio);
 		
 		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon("D:\\JavaProjects\\HSK_QLTour\\img\\employee-infographic.png"));
+		lblNewLabel_2.setIcon(new ImageIcon("img/employee-infographic.png"));
 		lblNewLabel_2.setBounds(993, 30, 88, 76);
 		contentPane.add(lblNewLabel_2);
 		
@@ -129,7 +129,7 @@ public class GDChinh extends JFrame implements MouseListener {
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setBounds(21, 11, 32, 32);
 		pnDatTour.add(lblNewLabel_1);
-		lblNewLabel_1.setIcon(new ImageIcon("D:\\JavaProjects\\HSK_QLTour\\img\\calendar.png"));
+		lblNewLabel_1.setIcon(new ImageIcon("img/calendar.png"));
 		
 		JLabel lblNewLabel_3 = new JLabel("Đặt Tour");
 		lblNewLabel_3.setBounds(74, 11, 75, 31);
@@ -145,7 +145,7 @@ public class GDChinh extends JFrame implements MouseListener {
 		contentPane.add(pnNhanVien);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("");
-		lblNewLabel_1_1.setIcon(new ImageIcon("D:\\JavaProjects\\HSK_QLTour\\img\\employee.png"));
+		lblNewLabel_1_1.setIcon(new ImageIcon("img/employee.png"));
 		lblNewLabel_1_1.setBounds(10, 10, 32, 32);
 		pnNhanVien.add(lblNewLabel_1_1);
 		
@@ -163,7 +163,7 @@ public class GDChinh extends JFrame implements MouseListener {
 		contentPane.add(pnKH);
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel("");
-		lblNewLabel_1_1_1.setIcon(new ImageIcon("D:\\JavaProjects\\HSK_QLTour\\img\\customer-review.png"));
+		lblNewLabel_1_1_1.setIcon(new ImageIcon("img/customer-review.png"));
 		lblNewLabel_1_1_1.setBounds(10, 10, 32, 32);
 		pnKH.add(lblNewLabel_1_1_1);
 		
@@ -181,7 +181,7 @@ public class GDChinh extends JFrame implements MouseListener {
 		contentPane.add(pnTour);
 		
 		JLabel lblNewLabel_1_1_1_1 = new JLabel("");
-		lblNewLabel_1_1_1_1.setIcon(new ImageIcon("D:\\JavaProjects\\HSK_QLTour\\img\\travel-schedule.png"));
+		lblNewLabel_1_1_1_1.setIcon(new ImageIcon("img/travel-schedule.png"));
 		lblNewLabel_1_1_1_1.setBounds(10, 10, 32, 32);
 		pnTour.add(lblNewLabel_1_1_1_1);
 		
@@ -199,7 +199,7 @@ public class GDChinh extends JFrame implements MouseListener {
 		contentPane.add(pnTK);
 		
 		JLabel lblNewLabel_1_1_1_2 = new JLabel("");
-		lblNewLabel_1_1_1_2.setIcon(new ImageIcon("D:\\JavaProjects\\HSK_QLTour\\img\\graphical-report.png"));
+		lblNewLabel_1_1_1_2.setIcon(new ImageIcon("img/graphical-report.png"));
 		lblNewLabel_1_1_1_2.setBounds(10, 10, 32, 32);
 		pnTK.add(lblNewLabel_1_1_1_2);
 		

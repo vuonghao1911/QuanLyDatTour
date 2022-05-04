@@ -87,6 +87,7 @@ public class DatTour_GUI extends JPanel implements ActionListener, MouseListener
 	private KhachHang_DAO khachHang_DAO;
 	private KhachHang khachHang;
 	private VeDao veDao;
+	private ArrayList<KhachHang> dsKH;
 
 	public static void main(String[] args) {
 		new DatTour_GUI().setVisible(true);
@@ -483,7 +484,13 @@ public class DatTour_GUI extends JPanel implements ActionListener, MouseListener
 					if (row == -1) {
 						JOptionPane.showMessageDialog(this, "Chọn Tour");
 					}else {
+						if (validDataKhachHang()==false) {
+							
+						KhachHang khachHang = getDataFromTable();
+						khachHang_DAO.insert(khachHang);
+						
 						boolean rs = veDao.insert(getVeFromTable());
+						
 						if(rs == true) {
 							DecimalFormat df = new DecimalFormat("###,###,###");
 							errThanhToan.setText("");
@@ -504,9 +511,39 @@ public class DatTour_GUI extends JPanel implements ActionListener, MouseListener
 							
 							Tour tour = tour_DAO.getTourTheoMa(tableModel.getValueAt(row, 0).toString());
 							tAreaMoTa.setText(tour.getMoTa());
+							
 						}
+						errNhapThongTin.setText("Đăng ký thành công");
 					}
-					errNhapThongTin.setText("Đăng ký thành công");
+						else {
+							boolean rs = veDao.insert(getVeFromTable());
+							
+							if(rs == true) {
+								DecimalFormat df = new DecimalFormat("###,###,###");
+								errThanhToan.setText("");
+								lblTenTour.setText(tableModel.getValueAt(row, 1).toString());
+								lblTTNgay.setText(tableModel.getValueAt(row, 2).toString());
+								lblTTThoiGian.setText(tableModel.getValueAt(row, 4).toString());
+							
+								double giaNL = Double.parseDouble( tableModel.getValueAt(row, 5).toString());
+								double giaTongNL = giaNL*Integer.parseInt(txtSLNguoiLon.getText());
+								lblTTGiaNL.setText(df.format(giaTongNL)+"");
+							
+								double giaTE = Double.parseDouble(tableModel.getValueAt(row, 6).toString());
+								double giaTongTE = giaTE * Integer.parseInt(txtSlTreEm.getText());
+								lblTTTTGiaTE.setText(df.format(giaTongTE)+"");
+							
+								double giaTong = giaTongNL + giaTongTE;
+								lblTTTong.setText(df.format(giaTong)+"");
+								
+								Tour tour = tour_DAO.getTourTheoMa(tableModel.getValueAt(row, 0).toString());
+								tAreaMoTa.setText(tour.getMoTa());
+								
+							}
+							errNhapThongTin.setText("Đăng ký thành công");
+						}
+					
+					}
 				}
 			}
 			if(o.equals(btnThanhToan)) {
@@ -647,7 +684,14 @@ public class DatTour_GUI extends JPanel implements ActionListener, MouseListener
 		int slTreEm = Integer.parseInt(txtSlTreEm.getText());
 		Tour tour = new Tour(maTour);
 		NhanVien nVien = new NhanVien(ShareData.taiKhoan.getTenDN());
-		Ve ve = new Ve(0, slNguoiLon, slTreEm, 0, tour, khachHang, nVien);
+		KhachHang kh = null;
+		dsKH = khachHang_DAO.getALLKhachHang();
+		for (KhachHang khachHang : dsKH) {
+			if (txtCMND.getText().contains(khachHang.getCmnd())) {
+				kh=khachHang;
+			}
+		}
+		Ve ve = new Ve(0, slNguoiLon, slTreEm, 0, tour, kh, nVien);
 
 		return ve;
 
@@ -690,7 +734,8 @@ public class DatTour_GUI extends JPanel implements ActionListener, MouseListener
 			if(e.getKeyCode()==KeyEvent.VK_ENTER) {
 				int count = 0;
 				String cmnd = txtCMND.getText().trim();
-				for(KhachHang kh :khachHang_DAO.getAll()) {
+				ArrayList<KhachHang > khachHangs = khachHang_DAO.getALLKhachHang();
+				for(KhachHang kh :khachHangs) {
 					if(cmnd.contains(kh.getCmnd())) {
 						khachHang =kh;
 						txtHoTen.setText(kh.getTenKH());
@@ -717,6 +762,27 @@ public class DatTour_GUI extends JPanel implements ActionListener, MouseListener
 		public void keyReleased(KeyEvent e) {
 			// TODO Auto-generated method stub
 			
+		}
+
+		private boolean validDataKhachHang() {
+			if (dsKH == null || dsKH.size() <= 0)
+				return false;
+			String tenKH = txtCMND.getText();
+			String cmnd = txtCMND.getText();
+			String  ten = txtHoTen.getText();
+			for (KhachHang kh : dsKH) {
+				if (ten.contains(kh.getTenKH())&& cmnd.contains(kh.getCmnd())) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+		
+		public KhachHang getDataFromTable() {
+			KhachHang kh = new KhachHang(txtHoTen.getText(), txtSDT.getText(), txtGioiTinh.getText(), txtCMND.getText());
+			
+			return kh;
 		}
 
 }

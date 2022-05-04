@@ -29,6 +29,15 @@ public class KhachHang {
 		this.maVe = maVe;
 	}
 	
+	
+	public KhachHang(String tenKH, String sdt, String gioiTinh, String cmnd) {
+		super();
+		this.tenKH = tenKH;
+		this.sdt = sdt;
+		this.gioiTinh = gioiTinh;
+		this.cmnd = cmnd;
+	}
+
 	public KhachHang(int maKH) {
 		super();
 		this.maKH = maKH;

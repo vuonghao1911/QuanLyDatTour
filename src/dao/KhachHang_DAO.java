@@ -39,6 +39,30 @@ public class KhachHang_DAO {
 		}
 		return customers;
 	}
+	public ArrayList<KhachHang> getALLKhachHang() {
+		ArrayList<KhachHang> dsKH = new ArrayList<KhachHang>();
+		ConnectDB.getInstance();
+		Statement statement = null;
+		Connection con = ConnectDB.getConnection();
+		try {
+			String sql = "SELECT * FROM KhachHang";
+			 statement = con.createStatement();
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				int maKH = rs.getInt("MaKH");
+				String tenKH = rs.getString(2);
+				String sdt = rs.getString(3);
+				String cmnd = rs.getString(5);
+				String gioiTinh = rs.getString(4);
+				KhachHang kh = new KhachHang(maKH, tenKH, sdt, gioiTinh, cmnd);
+				dsKH.add(kh);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return dsKH;
+	}
 	
 	public void add(KhachHang customer) throws SQLException {
 		Connection connection = ConnectDB.getConnection();
@@ -57,6 +81,32 @@ public class KhachHang_DAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	public boolean insert(KhachHang kh) {
+		ConnectDB.getInstance();
+		Connection con = ConnectDB.getConnection();
+		PreparedStatement stmt = null;
+		int n =0;
+		try {
+			String sql = " insert into [dbo].[KhachHang] (tenKH,sdt,gioiTinh,cmnd)"
+					+ " values (?,?,?,?)";
+			stmt= con.prepareStatement(sql);
+			stmt.setString(1,kh.getTenKH());
+			stmt.setString(2,kh.getSdt());
+			stmt.setString(4,kh.getCmnd());
+			stmt.setString(3,kh.getGioiTinh());
+			n= stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+			return n>0;	
 	}
 	
 	public void update(KhachHang customer, String id) throws SQLException {
