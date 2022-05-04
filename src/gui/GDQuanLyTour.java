@@ -35,6 +35,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+import com.toedter.calendar.JDateChooser;
+
 import connectDB.ConnectDB;
 import dao.Tour_DAO;
 import entity.Tour;
@@ -56,7 +58,7 @@ public class GDQuanLyTour extends JPanel implements ActionListener,MouseListener
 		private JTextField txtMaTour;
 		private JTextField txtThoiGian;
 		private JTextField txtTenTour;
-		private JTextField txtNKH;
+		private JDateChooser txtNKH;
 		private JTextField txtDiemDen;
 		private JTextField txtDiemDi;
 		private JTextField txtGia;
@@ -69,7 +71,17 @@ public class GDQuanLyTour extends JPanel implements ActionListener,MouseListener
 		private JButton bttCapNhat;
 		private JButton bttXoa;
 		private  Tour_DAO tour_DAO;  
-			
+		private int currentPostition = -1;
+		
+		public void DocDuLieuVaoTable() {
+			Tour_DAO tourDAO = new Tour_DAO();
+			List<Tour> tours = tourDAO.getAllTour();
+			for (Tour tour : tours) {
+				modelTour.addRow(new Object[] {tour.getMaTour(),tour.getTenTour(),tour.getDiemXuatPhat(),tour.getDiemDen(),tour.getThoiGian(),tour.getNgayKhoiHanh()
+						,tour.getMoTa(),tour.getGia(),tour.getGiaTreEm(),tour.getSoLuong()});
+			}
+		}
+		
 		public GDQuanLyTour() {
 			
 			//setTitle("QUANLYTOUR");
@@ -148,7 +160,7 @@ public class GDQuanLyTour extends JPanel implements ActionListener,MouseListener
 	        
 	        JPanel p22 = new JPanel();
 	        JLabel lblNKH = new JLabel("Ngày khởi hành: ");
-	        txtNKH = new JTextField(30);
+	        txtNKH = new JDateChooser();
 	        p22.add(lblNKH);
 	        p22.add(txtNKH);
 	        p2.add(p22);
@@ -279,7 +291,7 @@ public class GDQuanLyTour extends JPanel implements ActionListener,MouseListener
 			bttXoa.addActionListener(this);
 			
 			
-			DocDuLieuVaoTable(tour_DAO.getAllTour());
+			DocDuLieuVaoTable();
 		}
 		
 //		public static void main(String[] args) {
@@ -292,6 +304,7 @@ public class GDQuanLyTour extends JPanel implements ActionListener,MouseListener
 			Object object = e.getSource();
 			Tour_DAO tourDAO = new Tour_DAO();
 			List<Tour> dstour = tourDAO.getAllTour();
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
 			if (object.equals(bttTimKiem)) {
 				Tour tour = tourDAO.findByID(txtTim.getText());
 				if (txtTim.getText().equals("")) {
@@ -315,11 +328,11 @@ public class GDQuanLyTour extends JPanel implements ActionListener,MouseListener
 				String diemDen = txtDiemDen.getText().trim();
 				String thoiGian = txtThoiGian.getText().trim();
 				String moTa = txtMoTa.getText().trim();
-				String ngaykhoihanh = txtNKH.getText().trim();
+				String ngaykhoihanh = simpleDateFormat.format(tour.getNgayKhoiHanh()).trim();
 				Double gia = Double.parseDouble(txtGia.getText().trim());
 				Double giaTE = Double.parseDouble(txtGiaTE.getText().trim());
 				int soLuong = Integer.parseInt(txtSoLuong.getText().trim());
-				
+
 				Tour tour = new Tour(maTour, tenTour, diemDen, diemDi, thoiGian, null, moTa, gia, giaTE, soLuong);	
 					try {
 						tourDAO.them(tour);
@@ -332,15 +345,34 @@ public class GDQuanLyTour extends JPanel implements ActionListener,MouseListener
 					}
 					xoaTrang();
 				}	
-		
+		 else if (object.equals(bttCapNhat)) {
+			if (tableTour.getSelectedRow() == -1) {
+				JOptionPane.showMessageDialog(null, "Chọn Một Tour Trước Khi Cập Nhật");
+			} 
+			else {
+//				if (isValidField()) {
+				Tour tour = new Tour(Integer.parseInt(txtMaTour.getText()), txtTenTour.getText(), txtDiemDen.getText(),
+						txtDiemDi.getText(), txtThoiGian.getText(), null, simpleDateFormat.format(tour.getNgayKhoiHanh()), Double.parseDouble(txtGia.getText()), 
+						Double.parseDouble(txtGiaTE.getText()), Integer.parseInt(txtSoLuong.getText()));
+				try {
+					tourDAO.sua(tour, txtMaTour.getText());
+					modelTour.removeRow(currentPostition);
+					modelTour.addRow(new Object[] { String( tour.getMaTour(), tour.getTenTour(), tour.getDiemDen(), tour.getDiemXuatPhat(),
+							tour.getThoiGian(), tour.getMoTa(), simpleDateFormat.format(tour.getNgayKhoiHanh()), tour.getGia(), tour.getGiaTreEm(), tour.getSoLuong()) });
+					JOptionPane.showMessageDialog(null, "Cập Nhật Nhân Viên Thành Công!");
+					}
+				catch (SQLException e1) 
+					{
+					JOptionPane.showMessageDialog(null, "Có Lỗi Xảy Ra, Vui Lòng Thử Lại Sau!");
+					}
+				xoaTrang();
+			}}
 			else if (object.equals(bttXoa)) {
 				if (tableTour.getSelectedRow() == -1) {
 					JOptionPane.showMessageDialog(null, "Chọn Một Tour Trước Khi Xóa");
 				} else {
 					try {
 						tourDAO.xoa(txtMaTour.getText());
-
-						int currentPostition = 0;
 						modelTour.removeRow(currentPostition);				
 						JOptionPane.showMessageDialog(null, "Xóa Thành Công!");
 					} catch (SQLException e1) {
@@ -348,21 +380,21 @@ public class GDQuanLyTour extends JPanel implements ActionListener,MouseListener
 					}
 					xoaTrang();
 				}
+			
 			}
+			
 		}
 		
 		
-		private Object String(int maTour, java.lang.String tenTour, java.lang.String diemDen,
-				java.lang.String diemXuatPhat, java.lang.String thoiGian, java.lang.String moTa, Date ngayKhoiHanh,
-				Double gia, Double giaTreEm, int soLuong) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		private int String(String text, String text2, String text3, String text4, String text5, String text6,
-				String text7, String text8, String text9, String text10) {
-			// TODO Auto-generated method stub
-			return 0;
-		}
+		
+		private Object String(int maTour, java.lang.String tenTour, java.lang.String diemDen, java.lang.String diemXuatPhat,
+		java.lang.String thoiGian, java.lang.String moTa, java.lang.String string, Double gia, Double giaTreEm,
+		int soLuong) {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+		
 		
 
 		@Override
@@ -405,7 +437,7 @@ public class GDQuanLyTour extends JPanel implements ActionListener,MouseListener
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			// TODO Auto-generated method stub
-			int currentPostition = tableTour.getSelectedRow();
+			currentPostition = tableTour.getSelectedRow();
 			txtMaTour.setText(String.valueOf(tableTour.getValueAt(currentPostition, 1)));
 			txtTenTour.setText(String.valueOf(tableTour.getValueAt(currentPostition, 2)));
 			txtDiemDen.setText(String.valueOf(tableTour.getValueAt(currentPostition, 3)));
@@ -441,12 +473,7 @@ public class GDQuanLyTour extends JPanel implements ActionListener,MouseListener
 //			return true;
 //		}
 
-		public void DocDuLieuVaoTable(ArrayList<Tour> tours) {
-			for (Tour tour : tours) {
-				modelTour.addRow(new Object[] {tour.getMaTour(),tour.getTenTour(),tour.getDiemXuatPhat(),tour.getDiemDen(),tour.getThoiGian(),tour.getNgayKhoiHanh()
-						,tour.getMoTa(),tour.getGia(),tour.getGiaTreEm(),tour.getSoLuong()});
-			}
-		}
+		
 
 
 	}
