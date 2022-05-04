@@ -62,6 +62,22 @@ public class Tour {
 		this.maTour = maTour;
 		this.tenTour = tenTour;
 	}
+	
+
+
+	public Tour(int maTour, String tenTour, String diemDen, String thoiGian, Date ngayKhoiHanh, Double gia,
+			Double giaTreEm) {
+		super();
+		this.maTour = maTour;
+		this.tenTour = tenTour;
+		this.diemDen = diemDen;
+		this.thoiGian = thoiGian;
+		this.ngayKhoiHanh = ngayKhoiHanh;
+		this.gia = gia;
+		this.giaTreEm = giaTreEm;
+		
+	}
+
 	public int getMaTour() {
 		return maTour;
 	}

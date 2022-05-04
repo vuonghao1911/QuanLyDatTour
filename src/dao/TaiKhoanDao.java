@@ -27,7 +27,7 @@ public class TaiKhoanDao {
         TaiKhoan tk = null;
         try {
             
-           java.sql.Connection con = ConnectDB.getInstance().getConnection();
+           java.sql.Connection con = ConnectDB.getConnection();
            System.out.println(con);
            String sql = "select * from TaiKhoan where tenDN  = '"+username+"' ";
            Statement statement = con.createStatement();

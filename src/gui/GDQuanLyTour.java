@@ -1,5 +1,7 @@
 package gui;
 
+
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -12,7 +14,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -29,14 +33,19 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 import connectDB.ConnectDB;
 import dao.Tour_DAO;
 import entity.Tour;
 
+//import connectDB.ConnectDB;
+//import dao.Tour_DAO;
+//import entity.Tour;
 
 
-public class GDQuanLyTour extends JFrame implements ActionListener, MouseListener{
+
+public class GDQuanLyTour extends JPanel implements ActionListener,MouseListener  {
 		
 	 	private static final long serialVersionUID = 1L;
 		
@@ -59,6 +68,8 @@ public class GDQuanLyTour extends JFrame implements ActionListener, MouseListene
 		private JButton bttThem;	
 		private JButton bttCapNhat;
 		private JButton bttXoa;
+		private  Tour_DAO tour_DAO;  
+			
 		
 		
 		
@@ -66,12 +77,13 @@ public class GDQuanLyTour extends JFrame implements ActionListener, MouseListene
 	
 		public GDQuanLyTour() {
 			
-			setTitle("QUANLYTOUR");
+			//setTitle("QUANLYTOUR");
 			setSize(1250, 700);
-			setDefaultCloseOperation(EXIT_ON_CLOSE);
-			setLocationRelativeTo(null);
+			//setDefaultCloseOperation(EXIT_ON_CLOSE);
+			//setLocationRelativeTo(null);
 //			setResizable(false);
 				
+			tour_DAO = new Tour_DAO();
 			JPanel pnQLTour = new JPanel();
 			pnQLTour.setLayout(new BoxLayout(pnQLTour, BoxLayout.Y_AXIS));
 			
@@ -79,7 +91,7 @@ public class GDQuanLyTour extends JFrame implements ActionListener, MouseListene
 			pnTieuDe.setLayout(new FlowLayout());
 			lblTieuDe = new JLabel("QUAN LY DU LICH - LU HANH");
 			lblTieuDe.setFont(new Font("Arial", Font.BOLD, 20));
-			lblTieuDe.setForeground(Color.blue);
+			lblTieuDe.setForeground(new Color(0, 206, 209));
 			pnTieuDe.add(lblTieuDe);
 			pnQLTour.add(pnTieuDe);
 			
@@ -179,10 +191,10 @@ public class GDQuanLyTour extends JFrame implements ActionListener, MouseListene
 			lblGiaTE.setPreferredSize(lblNKH.getPreferredSize());
 			
 			
-			Border boderThongTin = BorderFactory.createLineBorder(Color.BLUE);
+			Border boderThongTin = BorderFactory.createLineBorder(new Color(221, 160, 221));
 			TitledBorder titleThongTin = new TitledBorder(boderThongTin, " THÔNG TIN TOUR ");
 			titleThongTin.setTitleJustification(TitledBorder.LEFT);
-			titleThongTin.setTitleColor(Color.RED);
+			titleThongTin.setTitleColor(new Color(0, 206, 209));
 			pnThongTin.setBorder(titleThongTin);
 			
 			pnQLTour.add(pnThongTin);		        		      
@@ -194,9 +206,20 @@ public class GDQuanLyTour extends JFrame implements ActionListener, MouseListene
 			
 			JTextField txtTim = new JTextField(20);
 	        bttTimKiem = new JButton("Tìm kiếm");
+	        bttTimKiem.setForeground(new Color(24, 140, 166));
+			bttTimKiem.setBackground(new Color(162, 226, 242));
+			
 	        bttCapNhat = new JButton("Cập nhật");
+	        bttCapNhat.setForeground(new Color(24, 140, 166));
+			bttCapNhat.setBackground(new Color(162, 226, 242));
+			
 	        bttThem = new JButton("Thêm");
+	        bttThem.setForeground(new Color(24, 140, 166));
+			bttThem.setBackground(new Color(162, 226, 242));
+			
 	        bttXoa = new JButton("Xóa");
+	        bttXoa.setForeground(new Color(24, 140, 166));
+			bttXoa.setBackground(new Color(162, 226, 242));
 	     
 			
 	        bttXoa.setBackground(Color.RED);
@@ -217,10 +240,10 @@ public class GDQuanLyTour extends JFrame implements ActionListener, MouseListene
 	        pnCN.add(Box.createHorizontalStrut(10));
 	        pnCN.add(bttXoa);
 	        
-	        Border boderCN = BorderFactory.createLineBorder(Color.BLUE);
+	        Border boderCN = BorderFactory.createLineBorder(new Color(221, 160, 221));
 			TitledBorder titleCN = new TitledBorder(boderCN, " CHỨC NĂNG ");
 			titleCN.setTitleJustification(TitledBorder.LEFT);
-			titleCN.setTitleColor(Color.RED);
+			titleCN.setTitleColor(new Color(0, 206, 209));
 			pnCN.setBorder(titleCN);
 	        
 			pnQLTour.add(pnCN);
@@ -232,11 +255,17 @@ public class GDQuanLyTour extends JFrame implements ActionListener, MouseListene
 			String[] colHeader = { "Mã Tour", "Tên Tour", "Điểm xuất phát", "Điểm đến", "Thời gian", "Ngày khởi hành", "Mô tả", "Giá", "Giá trẻ em", "Số lượng" };
 			modelTour = new DefaultTableModel(colHeader, 0);
 			tableTour = new JTable(modelTour);
+			JTableHeader tableHeader = tableTour.getTableHeader();
+			tableHeader.setBackground(new Color(108, 166, 205));
+			tableHeader.setFont(new Font("Arial", Font.BOLD, 14));
+			tableHeader.setForeground(Color.white);
+			
 			pnBang.add(new JScrollPane(tableTour), BorderLayout.CENTER);
-			Border boderDanhSach = BorderFactory.createLineBorder(Color.BLUE);
+			Border boderDanhSach = BorderFactory.createLineBorder(new Color(221, 160, 221));
 			TitledBorder titleDanhSach = new TitledBorder(boderDanhSach, " DANH SÁCH ");
 			titleDanhSach.setTitleJustification(TitledBorder.CENTER);
-			titleDanhSach.setTitleColor(Color.RED);
+			titleDanhSach.setTitleColor(new Color(0, 206, 209));
+			setLayout(new BorderLayout(0, 0));
 			pnBang.setBorder(titleDanhSach);
 			pnQLTour.add(pnBang);
 
@@ -254,6 +283,8 @@ public class GDQuanLyTour extends JFrame implements ActionListener, MouseListene
 			bttCapNhat.addActionListener(this);
 			bttXoa.addActionListener(this);
 			
+			
+			DocDuLieuVaoTable(tour_DAO.getAllTour());
 		}
 		
 		public static void main(String[] args) {
@@ -393,6 +424,7 @@ public class GDQuanLyTour extends JFrame implements ActionListener, MouseListene
 			
 		}
 		
+<<<<<<< HEAD
 //		private boolean isValidField() {
 //			try {
 //				Integer.parseInt(txtMaTour.getText());
@@ -414,6 +446,14 @@ public class GDQuanLyTour extends JFrame implements ActionListener, MouseListene
 //
 //			return true;
 //		}
+=======
+		public void DocDuLieuVaoTable(ArrayList<Tour> tours) {
+			for (Tour tour : tours) {
+				modelTour.addRow(new Object[] {tour.getMaTour(),tour.getTenTour(),tour.getDiemXuatPhat(),tour.getDiemDen(),tour.getThoiGian(),tour.getNgayKhoiHanh()
+						,tour.getMoTa(),tour.getGia(),tour.getGiaTreEm(),tour.getSoLuong()});
+			}
+		}
+>>>>>>> a00eb80d941f1dc77009526d052c86d7f6e20c6f
 
 	}
 
