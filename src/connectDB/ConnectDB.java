@@ -21,7 +21,7 @@ public class ConnectDB {
 	public void connect() throws SQLException {
 		String url ="jdbc:sqlserver://localhost:1433;databaseName=QLTour";
 		String user ="sa";
-		String password="1234";
+		String password="sa";
 		con = DriverManager.getConnection(url, user, password);
 	}
 	public void disconnect() {

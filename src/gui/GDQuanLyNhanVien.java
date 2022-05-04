@@ -1,6 +1,6 @@
 package gui;
 
-import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -18,7 +18,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -34,7 +34,7 @@ import dao.NhanVien_DAO;
 import entity.NhanVien;
 
 @SuppressWarnings("serial")
-public class GDQuanLyNhanVien extends JFrame implements ActionListener, MouseListener {
+public class GDQuanLyNhanVien extends JPanel implements ActionListener, MouseListener {
 	private JPanel pnlTask;
 
 	private JLabel lblTitle;
@@ -83,11 +83,11 @@ public class GDQuanLyNhanVien extends JFrame implements ActionListener, MouseLis
 	}
 
 	private void initGUI() {
-		this.setSize(1250, 700);
-		this.setResizable(false);
-		this.setTitle("Quản Lý Nhân Viên");
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setSize(1250, 574);
+//		this.setResizable(false);
+//		this.setTitle("Quản Lý Nhân Viên");
+//		this.setLocationRelativeTo(null);
+//		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		JPanel jpnGDQuanLyNV = new JPanel();
 		jpnGDQuanLyNV.setLayout(new BoxLayout(jpnGDQuanLyNV, BoxLayout.Y_AXIS) );
@@ -165,7 +165,7 @@ public class GDQuanLyNhanVien extends JFrame implements ActionListener, MouseLis
 		defaultTableModel = new DefaultTableModel(header, 0);
 		jpnGDQuanLyNV.add(new JScrollPane(tblEmployee = new JTable(defaultTableModel)));
 
-		lblTitle.setPreferredSize(new Dimension(1220, 35));
+		lblTitle.setPreferredSize(new Dimension(650, 35));
 		lblID.setPreferredSize(new Dimension(100, 20));
 		lblAddress.setPreferredSize(new Dimension(100, 20));
 		lblDayOfBirth.setPreferredSize(new Dimension(100, 20));
@@ -179,7 +179,7 @@ public class GDQuanLyNhanVien extends JFrame implements ActionListener, MouseLis
 		btnUpdate.setPreferredSize(new Dimension(100, 25));
 		btnDelete.setPreferredSize(new Dimension(100, 25));
 		
-		tblEmployee.setPreferredScrollableViewportSize(new Dimension(1220, 400));
+		tblEmployee.setPreferredScrollableViewportSize(new Dimension(1220, 288));
 
 		lblTitle.setFont(new Font("Arial", Font.BOLD, 25));
 		lblTitle.setForeground(Color.RED);
@@ -195,9 +195,9 @@ public class GDQuanLyNhanVien extends JFrame implements ActionListener, MouseLis
 		}
 	}
 
-	public static void main(String[] args) {
-		new GDQuanLyNhanVien().setVisible(true);
-	}
+//	public static void main(String[] args) {
+//		new GDQuanLyNhanVien().setVisible(true);
+//	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {

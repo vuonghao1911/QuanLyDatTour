@@ -73,7 +73,8 @@ public class GDChinh extends JFrame {
 		tabbedPane.addTab(" Quản Lý Tour", new ImageIcon("img/travel-schedule.png"), new GDQuanLyTour());
 		//pnKhachHang.setPreferredSize(new Dimension(tabbedPane.getWidth(),tabbedPane.getHeight()));
 		tabbedPane.addTab("Thống Kê",new ImageIcon("img/graphical-report.png"), new GDThongKe());
-		
+		tabbedPane.addTab(" Quản Lý Khách Hàng", new ImageIcon("img/travel-schedule.png"), new GDQuanLyKhachHang());
+		tabbedPane.addTab(" Quản Lý Nhân Viên", new ImageIcon("img/travel-schedule.png"), new GDQuanLyNhanVien());
 		contentPane.add(tabbedPane);
 		
 		JLabel lblNewLabel = new JLabel("Công Ty Du Lịch 17");

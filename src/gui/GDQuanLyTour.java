@@ -39,9 +39,9 @@ import connectDB.ConnectDB;
 import dao.Tour_DAO;
 import entity.Tour;
 
-//import connectDB.ConnectDB;
-//import dao.Tour_DAO;
-//import entity.Tour;
+import connectDB.ConnectDB;
+import dao.Tour_DAO;
+import entity.Tour;
 
 
 
@@ -70,11 +70,6 @@ public class GDQuanLyTour extends JPanel implements ActionListener,MouseListener
 		private JButton bttXoa;
 		private  Tour_DAO tour_DAO;  
 			
-		
-		
-		
-			
-	
 		public GDQuanLyTour() {
 			
 			//setTitle("QUANLYTOUR");
@@ -445,7 +440,7 @@ public class GDQuanLyTour extends JPanel implements ActionListener,MouseListener
 //
 //			return true;
 //		}
-=======
+
 		public void DocDuLieuVaoTable(ArrayList<Tour> tours) {
 			for (Tour tour : tours) {
 				modelTour.addRow(new Object[] {tour.getMaTour(),tour.getTenTour(),tour.getDiemXuatPhat(),tour.getDiemDen(),tour.getThoiGian(),tour.getNgayKhoiHanh()

@@ -83,7 +83,7 @@ public class GDQuanLyKhachHang extends JPanel implements ActionListener, MouseLi
 
 	private void initGUI() {
 		setSize(1240, 574);
-		setLayout(new BorderLayout());
+
 //		this.setResizable(false);
 //		this.setTitle("Quản Lý Khách Hàng");
 //		this.setLocationRelativeTo(null);
@@ -138,8 +138,8 @@ public class GDQuanLyKhachHang extends JPanel implements ActionListener, MouseLi
         p2.add(p21);
         
         JPanel p22 = new JPanel();
-        JLabel lblTourCode = new JLabel("Ngày Sinh: ");
-        tfTourCode = new JTextField();
+        JLabel lblTourCode = new JLabel("Mã Tour: ");
+        tfTourCode = new JTextField(30);
         p22.add(lblTourCode);
         p22.add(tfTourCode);
         p2.add(p22);
@@ -194,9 +194,9 @@ public class GDQuanLyKhachHang extends JPanel implements ActionListener, MouseLi
 		}
 	}
 
-	public static void main(String[] args) {
-		new GDQuanLyKhachHang().setVisible(true);
-	}
+//	public static void main(String[] args) {
+//		new GDQuanLyKhachHang().setVisible(true);
+//	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
