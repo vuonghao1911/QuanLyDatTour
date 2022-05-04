@@ -1,40 +1,51 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.CardLayout;
+
 import java.awt.EventQueue;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+
 
 import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 
 import dao.NhanVien_DAO;
 import entity.NhanVien;
-import entity.TaiKhoan;
+
 import shareData.ShareData;
 
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.JTabbedPane;
+
+
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+
 import java.util.Calendar;
 import java.util.Date;
 
-public class GDChinh extends JFrame {
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import javax.swing.border.LineBorder;
+
+public class GDChinh extends JFrame implements MouseListener {
 
 	private JPanel contentPane;
 	private JLabel lblGio;
 	private JLabel lblNgay;
 	private JLabel lblNhanVien;
+	private JPanel panel;
+	private JPanel pnDatTour;
+	private JPanel pnNhanVien;
+	private JPanel pnKH;
+	private JPanel pnTour;
+	private JPanel pnTK;
 
 	/**
 	 * Launch the application.
@@ -67,32 +78,7 @@ public class GDChinh extends JFrame {
 		setLocationRelativeTo(null);
 		FlatCyanLightIJTheme.setup();
 		contentPane.setLayout(null);
-		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(20, 93, 1250, 700);
-		JPanel pnKhachHang = new GDQuanLyTour();
-		tabbedPane.addTab(" Đặt Tour",new ImageIcon("img/calendar.png"), new DatTour_GUI());
-		tabbedPane.addTab(" Quản Lý Tour", new ImageIcon("img/travel-schedule.png"), pnKhachHang);
-		//pnKhachHang.setPreferredSize(new Dimension(tabbedPane.getWidth(),tabbedPane.getHeight()));
-		tabbedPane.addTab("Thống Kê",new ImageIcon("img/graphical-report.png"), new GDThongKe());
-<<<<<<< HEAD
-		tabbedPane.addChangeListener(new ChangeListener() {
-			
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				int index = tabbedPane.getSelectedIndex();
-				if(index == 1) {
-					tabbedPane.setTabComponentAt(1, new GDThongKe());
-					tabbedPane.setTitleAt(1, "Giao dien ");
-				}
-			}
-		});
-		
-=======
-		tabbedPane.addTab(" Quản Lý Khách Hàng", new ImageIcon("img/travel-schedule.png"), new GDQuanLyKhachHang());
-		tabbedPane.addTab(" Quản Lý Nhân Viên", new ImageIcon("img/travel-schedule.png"), new GDQuanLyNhanVien());
->>>>>>> ed7f122d46670aa868e273662b15290436f85c71
-		contentPane.add(tabbedPane);
+		//JPanel pnKhachHang = new GDQuanLyTour();
 		
 		JLabel lblNewLabel = new JLabel("Công Ty Du Lịch 17");
 		lblNewLabel.setForeground(new Color(147, 112, 219));
@@ -129,9 +115,110 @@ public class GDChinh extends JFrame {
 		lblNewLabel_2.setBounds(993, 30, 88, 76);
 		contentPane.add(lblNewLabel_2);
 		
+		panel = new JPanel();
+		panel.setBounds(10, 153, 1250, 660);
+		contentPane.add(panel);
+		
+		pnDatTour = new JPanel();
+		pnDatTour.setBorder(new LineBorder(new Color(72, 209, 204), 2));
+		pnDatTour.setBackground(new Color(147, 112, 219));
+		pnDatTour.setBounds(20, 93, 171, 50);
+		contentPane.add(pnDatTour);
+		pnDatTour.setLayout(null);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setBounds(21, 11, 32, 32);
+		pnDatTour.add(lblNewLabel_1);
+		lblNewLabel_1.setIcon(new ImageIcon("D:\\JavaProjects\\HSK_QLTour\\img\\calendar.png"));
+		
+		JLabel lblNewLabel_3 = new JLabel("Đặt Tour");
+		lblNewLabel_3.setBounds(74, 11, 75, 31);
+		pnDatTour.add(lblNewLabel_3);
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_3.setForeground(new Color(75, 0, 130));
+		
+		pnNhanVien = new JPanel();
+		pnNhanVien.setLayout(null);
+		pnNhanVien.setBorder(new LineBorder(new Color(72, 209, 204), 2));
+		pnNhanVien.setBackground(new Color(64, 224, 208));
+		pnNhanVien.setBounds(192, 93, 181, 50);
+		contentPane.add(pnNhanVien);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("");
+		lblNewLabel_1_1.setIcon(new ImageIcon("D:\\JavaProjects\\HSK_QLTour\\img\\employee.png"));
+		lblNewLabel_1_1.setBounds(10, 10, 32, 32);
+		pnNhanVien.add(lblNewLabel_1_1);
+		
+		JLabel lblNewLabel_3_1 = new JLabel("QL Nhân Viên");
+		lblNewLabel_3_1.setForeground(new Color(75, 0, 130));
+		lblNewLabel_3_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_3_1.setBounds(73, 10, 98, 32);
+		pnNhanVien.add(lblNewLabel_3_1);
+		
+		pnKH = new JPanel();
+		pnKH.setLayout(null);
+		pnKH.setBorder(new LineBorder(new Color(72, 209, 204), 2));
+		pnKH.setBackground(new Color(64, 224, 208));
+		pnKH.setBounds(374, 93, 181, 50);
+		contentPane.add(pnKH);
+		
+		JLabel lblNewLabel_1_1_1 = new JLabel("");
+		lblNewLabel_1_1_1.setIcon(new ImageIcon("D:\\JavaProjects\\HSK_QLTour\\img\\customer-review.png"));
+		lblNewLabel_1_1_1.setBounds(10, 10, 32, 32);
+		pnKH.add(lblNewLabel_1_1_1);
+		
+		JLabel lblNewLabel_3_1_1 = new JLabel("QL Khách Hàng");
+		lblNewLabel_3_1_1.setForeground(new Color(75, 0, 130));
+		lblNewLabel_3_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_3_1_1.setBounds(67, 10, 104, 30);
+		pnKH.add(lblNewLabel_3_1_1);
+		
+		pnTour = new JPanel();
+		pnTour.setLayout(null);
+		pnTour.setBorder(new LineBorder(new Color(72, 209, 204), 2));
+		pnTour.setBackground(new Color(64, 224, 208));
+		pnTour.setBounds(556, 93, 181, 50);
+		contentPane.add(pnTour);
+		
+		JLabel lblNewLabel_1_1_1_1 = new JLabel("");
+		lblNewLabel_1_1_1_1.setIcon(new ImageIcon("D:\\JavaProjects\\HSK_QLTour\\img\\travel-schedule.png"));
+		lblNewLabel_1_1_1_1.setBounds(10, 10, 32, 32);
+		pnTour.add(lblNewLabel_1_1_1_1);
+		
+		JLabel lblNewLabel_3_1_1_1 = new JLabel("QL Tour");
+		lblNewLabel_3_1_1_1.setForeground(new Color(75, 0, 130));
+		lblNewLabel_3_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_3_1_1_1.setBounds(67, 10, 104, 30);
+		pnTour.add(lblNewLabel_3_1_1_1);
+		
+		pnTK = new JPanel();
+		pnTK.setLayout(null);
+		pnTK.setBorder(new LineBorder(new Color(72, 209, 204), 2));
+		pnTK.setBackground(new Color(64, 224, 208));
+		pnTK.setBounds(738, 93, 181, 50);
+		contentPane.add(pnTK);
+		
+		JLabel lblNewLabel_1_1_1_2 = new JLabel("");
+		lblNewLabel_1_1_1_2.setIcon(new ImageIcon("D:\\JavaProjects\\HSK_QLTour\\img\\graphical-report.png"));
+		lblNewLabel_1_1_1_2.setBounds(10, 10, 32, 32);
+		pnTK.add(lblNewLabel_1_1_1_2);
+		
+		JLabel lblNewLabel_3_1_1_2 = new JLabel("Thống Kê");
+		lblNewLabel_3_1_1_2.setForeground(new Color(75, 0, 130));
+		lblNewLabel_3_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_3_1_1_2.setBounds(67, 10, 104, 30);
+		pnTK.add(lblNewLabel_3_1_1_2);
+		
 		clock();
 		ngay();
-		//checkQuyen();
+		checkQuyen();
+		ChangeFrame(new DatTour_GUI());
+		pnDatTour.addMouseListener(this);
+		pnKH.addMouseListener(this);
+		pnNhanVien.addMouseListener(this);
+		pnTK.addMouseListener(this);
+		pnTour.addMouseListener(this);
+		pnNhanVien.setEnabled(false);
 	}
 	
 	public void clock() {
@@ -171,10 +258,88 @@ public class GDChinh extends JFrame {
 		NhanVien_DAO nvDao= new NhanVien_DAO();
 		NhanVien nhanVien = nvDao.findByID(String.valueOf(ShareData.taiKhoan.getTenDN()));
 		
-		if (ShareData.taiKhoan.getQuyen()==1) {
+		if (ShareData.taiKhoan.getQuyen()==2) {
 			lblNhanVien.setText("Nhân Viên : "+nhanVien.getTenNV() );
+			pnNhanVien.setVisible(false);;
+			pnKH.setBounds(192, 93, 181, 50);
+			pnTour.setBounds(374, 93, 181, 50);
+			pnTK.setBounds(556, 93, 181, 50);
+			//pnTK.setBounds(738, 93, 181, 50);
 		}else {
 			lblNhanVien.setText("Quản Lý : "+nhanVien.getTenNV());
 		}
 	}
+	private void ChangeFrame(JPanel panel1) {
+		panel.removeAll();
+		panel.setLayout(new CardLayout());
+		panel.add(panel1);
+		panel.validate();
+		panel.repaint();
+
+	}
+	public void ChangeColor(JPanel pnFocus, JPanel unFocus1,JPanel unFocus2,JPanel unFocus3,JPanel unFocus4) {
+		pnFocus.setBackground(new Color(147, 112, 219));
+		
+		unFocus1.setBackground(new Color(64, 224, 208));
+		unFocus2.setBackground(new Color(64, 224, 208));
+		unFocus3.setBackground(new Color(64, 224, 208));
+		unFocus4.setBackground(new Color(64, 224, 208));
+		
+		
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		Object o = e.getSource();
+		if (o==pnNhanVien) {
+			ChangeFrame(new GDQuanLyNhanVien());
+			ChangeColor(pnNhanVien, pnKH, pnDatTour, pnTK,pnDatTour);
+		}
+		if (o==pnDatTour) {
+			ChangeFrame(new DatTour_GUI());
+			ChangeColor(pnDatTour, pnKH, pnTour, pnTK,pnNhanVien);
+		}
+		if (o==pnKH) {
+			ChangeFrame(new GDQuanLyKhachHang());
+			ChangeColor(pnKH, pnTK, pnDatTour, pnTour,pnNhanVien);
+		}
+		
+		if (o==pnTour) {
+			ChangeFrame(new GDQuanLyTour());
+			ChangeColor(pnTour, pnKH, pnDatTour, pnTK,pnNhanVien);
+		}
+		if (o==pnTK) {
+			ChangeFrame(new GDThongKe());
+			ChangeColor(pnTK, pnKH, pnDatTour, pnNhanVien,pnTour);
+		}
+		
+		
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 }

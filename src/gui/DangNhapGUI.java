@@ -85,7 +85,7 @@ public class DangNhapGUI extends JFrame  implements MouseListener, ActionListene
         pncheck.setLayout(new FlowLayout());
         htmk = new JCheckBox("Hiển thị mật khẩu");
         pncheck.add(htmk);
-pnDangNhap.add(pncheck);
+        pnDangNhap.add(pncheck);
         
         htmk.addActionListener(new ActionListener(){
         public void actionPerformed(ActionEvent e) {

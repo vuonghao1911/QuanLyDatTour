@@ -18,6 +18,8 @@ import entity.Tour;
 import entity.Ve;
 
 public class VeDao {
+	
+
 	public ArrayList<Ve> getAllVes(){
 		ArrayList<Ve> dsVe = new ArrayList<Ve>();
 		ConnectDB.getInstance();

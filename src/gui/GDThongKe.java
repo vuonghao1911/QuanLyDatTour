@@ -356,6 +356,7 @@ public class GDThongKe extends JPanel implements ActionListener, KeyListener, Mo
 	
 	private void ThongKeDoanhThuThang(JPanel pnPanel , int month) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM");
+		DecimalFormat df = new DecimalFormat("###,###,###");
 		
 		dsVe = veDao.getVeByMonth(month);	
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -369,7 +370,6 @@ public class GDThongKe extends JPanel implements ActionListener, KeyListener, Mo
 					dataset.addValue(ve.TongTien(), "Doanh Thu(VND)",sdf.format( ve.getNgayDat()));
 				} else {
 					for (Ve veNgay : dsVeNgay) {
-
 						tong += ve.TongTien();
 					}
 					dataset.addValue(tong, "Doanh Thu(VND)",sdf.format(ve.getNgayDat()));
