@@ -283,15 +283,21 @@ public class GDQuanLyTour extends JFrame implements ActionListener, MouseListene
 
 				}
 			} else if (object.equals(bttThem)) { 
-				if (dstour.contains(new Tour(Integer.parseInt(txtMaTour.getText() ) ) ) ) {
-					JOptionPane.showMessageDialog(null, "Mã tour Đã Tồn Tại!");
-
-				} else  {
+				int maTour = Integer.parseInt(txtMaTour.getText().trim());
+				String tenTour = txtTenTour.getText().trim();
+				String diemDi = txtDiemDi.getText().trim();
+				String diemDen = txtDiemDen.getText().trim();
+				String thoiGian = txtThoiGian.getText().trim();
+				String moTa = txtMoTa.getText().trim();
+				String ngaykhoihanh = txtNKH.getText().trim();
+				Double gia = Double.parseDouble(txtGia.getText().trim());
+				Double giaTE = Double.parseDouble(txtGiaTE.getText().trim());
+				int soLuong = Integer.parseInt(txtSoLuong.getText().trim());
+				
+				Tour tour = new Tour(maTour, tenTour, diemDen, diemDi, thoiGian, null, moTa, gia, giaTE, soLuong);	
 					try {
-						Tour tour = new Tour(String(txtMaTour.getText(), txtTenTour.getText(),txtDiemDen.getText(), txtDiemDi.getText(), txtThoiGian.getText(), txtMoTa.getText(), txtNKH.getText(), txtGia.getText(), txtGiaTE.getText(), txtSoLuong.getText()));
 						tourDAO.them(tour);
-						modelTour.addRow(new Object[] { String(tour.getMaTour(), tour.getTenTour(), tour.getDiemDen(), tour.getDiemXuatPhat(),
-								tour.getThoiGian(), tour.getMoTa(), tour.getNgayKhoiHanh(), tour.getGia(), tour.getGiaTreEm(), tour.getSoLuong()) });
+						modelTour.addRow(new Object[] { maTour, tenTour, diemDen, diemDi, thoiGian, null, moTa, gia, giaTE, soLuong});
 						JOptionPane.showMessageDialog(null, "Thêm Tour Thành Công!");
 					} catch (SQLException e1) 
 
@@ -299,8 +305,9 @@ public class GDQuanLyTour extends JFrame implements ActionListener, MouseListene
 						JOptionPane.showMessageDialog(null, "Có Lỗi Xảy Ra, Vui Lòng Thử Lại Sau!");
 					}
 					xoaTrang();
-				}				
-			} else if (object.equals(bttXoa)) {
+				}	
+		
+			else if (object.equals(bttXoa)) {
 				if (tableTour.getSelectedRow() == -1) {
 					JOptionPane.showMessageDialog(null, "Chọn Một Tour Trước Khi Xóa");
 				} else {
@@ -356,8 +363,6 @@ public class GDQuanLyTour extends JFrame implements ActionListener, MouseListene
 			
 		}
 
-
-
 		private void xoaTrang(){
 			txtMaTour.setText("");
 			txtTenTour.setText("");
@@ -374,8 +379,41 @@ public class GDQuanLyTour extends JFrame implements ActionListener, MouseListene
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			// TODO Auto-generated method stub
+			int currentPostition = tableTour.getSelectedRow();
+			txtMaTour.setText(String.valueOf(tableTour.getValueAt(currentPostition, 1)));
+			txtTenTour.setText(String.valueOf(tableTour.getValueAt(currentPostition, 2)));
+			txtDiemDen.setText(String.valueOf(tableTour.getValueAt(currentPostition, 3)));
+			txtDiemDi.setText(String.valueOf(tableTour.getValueAt(currentPostition, 4)));
+			txtThoiGian.setText(String.valueOf(tableTour.getValueAt(currentPostition, 5)));
+			txtNKH.setText(String.valueOf(tableTour.getValueAt(currentPostition, 6)));
+			txtMoTa.setText(String.valueOf(tableTour.getValueAt(currentPostition, 7)));
+			txtGia.setText(String.valueOf(tableTour.getValueAt(currentPostition, 8)));
+			txtGiaTE.setText(String.valueOf(tableTour.getValueAt(currentPostition, 9)));
+			txtSoLuong.setText(String.valueOf(tableTour.getValueAt(currentPostition, 10)));
 			
 		}
+		
+//		private boolean isValidField() {
+//			try {
+//				Integer.parseInt(txtMaTour.getText());
+//			} catch (Exception e) {
+//				JOptionPane.showMessageDialog(null, "Mã Tour Là Bắt Buộc Và Chỉ Chứa Các Số Nguyên!");
+//				return false;
+//			}
+//
+//			if (!txtTenTour.getText()
+//					.matches("^(?:[\\p{L}\\p{Mn}\\p{Pd}\\'\\x{2019}]+\\s[\\p{L}\\p{Mn}\\p{Pd}\\'\\x{2019}]+\\s?)+$")) {
+//				JOptionPane.showMessageDialog(null, "Tên T Là Bắt Buộc Chỉ Chứa Chữ Cái Và Dấu Cách!");
+//				return false;
+//			}
+//		if (!txtNKH.getText()
+//				.matches("^[0-9]{8} + []")) {
+//			JOptionPane.showMessageDialog(null, "Tên T Là Bắt Buộc Chỉ Chứa Chữ Cái Và Dấu Cách!");
+//			return false;
+//		}
+//
+//			return true;
+//		}
 
 	}
 

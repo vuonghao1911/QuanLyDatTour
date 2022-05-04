@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -14,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -33,9 +35,8 @@ import entity.NhanVien;
 
 @SuppressWarnings("serial")
 public class GDQuanLyNhanVien extends JFrame implements ActionListener, MouseListener {
-	private JPanel pnlControl;
 	private JPanel pnlTask;
-	private JPanel pnlContent;
+
 	private JLabel lblTitle;
 	private JLabel lblID;
 	private JLabel lblName;
@@ -88,39 +89,83 @@ public class GDQuanLyNhanVien extends JFrame implements ActionListener, MouseLis
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		this.add(pnlContent = new JPanel(), BorderLayout.CENTER);
-		this.add(pnlControl = new JPanel(), BorderLayout.NORTH);
-
+		JPanel jpnGDQuanLyNV = new JPanel();
+		jpnGDQuanLyNV.setLayout(new BoxLayout(jpnGDQuanLyNV, BoxLayout.Y_AXIS) );
+		
 		String[] gender = { "Nam", "Nữ" };
-		pnlControl.add(lblTitle = new JLabel("QUẢN LÝ NHÂN VIÊN", JLabel.CENTER));
-		pnlControl.add(lblID = new JLabel("Mã Nhân Viên"));
-		pnlControl.add(tfID = new JTextField(17));
-		pnlControl.add(lblName = new JLabel("Tên Nhân Viên"));
-		pnlControl.add(tfName = new JTextField(17));
-		pnlControl.add(lblTel = new JLabel("Số Điện Thoại"));
-		pnlControl.add(tfTel = new JTextField(17));
-		pnlControl.add(lblAddress = new JLabel("Địa Chỉ"));
-		pnlControl.add(tfAddress = new JTextField(17));
-		pnlControl.add(lblDayOfBirth = new JLabel("Ngày Sinh"));
-		pnlControl.add(dchDayOfBirth = new JDateChooser());
-		pnlControl.add(lblGender = new JLabel("Giới Tính"));
-		pnlControl.add(cbxGender = new JComboBox<String>(gender));
-		pnlControl.add(pnlTask = new JPanel());
-
-		pnlTask.add(tfSearch = new JTextField(17));
+		jpnGDQuanLyNV.add(lblTitle = new JLabel("QUẢN LÝ NHÂN VIÊN", JLabel.CENTER));
+		
+		JPanel pnlTT = new JPanel();
+		pnlTT.setLayout(new GridLayout(1, 2));
+		
+//		Bên trái		
+		JPanel p1 = new JPanel();
+		p1.setLayout(new BoxLayout(p1, BoxLayout.Y_AXIS));
+		
+		JPanel p11 = new JPanel();
+        JLabel lblID = new JLabel("Mã Nhân Viên: ");
+        tfID = new JTextField(30);
+        p11.add(lblID);
+        p11.add(tfID);
+        p1.add(p11);
+        
+        JPanel p12 = new JPanel();
+        JLabel lblName = new JLabel("Tên Nhân Viên: ");
+        tfName = new JTextField(30);
+        p12.add(lblName);
+        p12.add(tfName);
+        p1.add(p12);
+        
+        JPanel p13 = new JPanel();
+        JLabel lblTel = new JLabel("Số Điện Thoại: ");
+        tfTel = new JTextField(30);
+        p13.add(lblTel);
+        p13.add(tfTel);
+        p1.add(p13);
+        
+		pnlTT.add(p1);
+		
+//		Bên phải 
+		JPanel p2 = new JPanel();
+		p2.setLayout(new BoxLayout(p2, BoxLayout.Y_AXIS));
+		
+		JPanel p21 = new JPanel();
+        JLabel lblAddress = new JLabel("Địa Chỉ: ");
+        tfAddress = new JTextField(30);
+        p21.add(lblAddress);
+        p21.add(tfAddress);
+        p2.add(p21);
+        
+        JPanel p22 = new JPanel();
+        JLabel lblDayOfBirth = new JLabel("Ngày Sinh: ");
+        dchDayOfBirth = new JDateChooser();
+        p22.add(lblDayOfBirth);
+        p22.add(dchDayOfBirth);
+        p2.add(p22);
+        
+        JPanel p23 = new JPanel();
+        JLabel lblGender = new JLabel("Giới tính: ");
+        cbxGender = new JComboBox<String>(gender);
+        p23.add(lblGender);
+        p23.add(cbxGender);
+        p2.add(p23);
+        
+        pnlTT.add(p2);
+        jpnGDQuanLyNV.add(pnlTT);
+       
+		jpnGDQuanLyNV.add(pnlTask = new JPanel());	
+		pnlTask.add(tfSearch = new JTextField(20));
 		pnlTask.add(btnSearch = new JButton("Tìm Kiếm"));
 		pnlTask.add(btnAdd = new JButton("Thêm"));
 		pnlTask.add(btnUpdate = new JButton("Cập Nhật"));
 		pnlTask.add(btnDelete = new JButton("Xóa"));
-
+		pnlTask.setPreferredSize(new Dimension(1220, 60));
+		
 		String[] header = { "Mã Nhân Viên", "Tên Nhân Viên", "Địa Chỉ", "Số Điện Thoại", "Ngày Sinh", "Giới Tính" };
 		defaultTableModel = new DefaultTableModel(header, 0);
-		pnlContent.add(new JScrollPane(tblEmployee = new JTable(defaultTableModel)));
+		jpnGDQuanLyNV.add(new JScrollPane(tblEmployee = new JTable(defaultTableModel)));
 
-		pnlControl.setPreferredSize(new Dimension(640, 180));
-		pnlContent.setPreferredSize(new Dimension(640, 300));
-
-		lblTitle.setPreferredSize(new Dimension(640, 35));
+		lblTitle.setPreferredSize(new Dimension(1220, 35));
 		lblID.setPreferredSize(new Dimension(100, 20));
 		lblAddress.setPreferredSize(new Dimension(100, 20));
 		lblDayOfBirth.setPreferredSize(new Dimension(100, 20));
@@ -133,13 +178,16 @@ public class GDQuanLyNhanVien extends JFrame implements ActionListener, MouseLis
 		btnAdd.setPreferredSize(new Dimension(100, 25));
 		btnUpdate.setPreferredSize(new Dimension(100, 25));
 		btnDelete.setPreferredSize(new Dimension(100, 25));
-		tblEmployee.setPreferredScrollableViewportSize(new Dimension(620, 280));
+		
+		tblEmployee.setPreferredScrollableViewportSize(new Dimension(1220, 400));
 
 		lblTitle.setFont(new Font("Arial", Font.BOLD, 25));
 		lblTitle.setForeground(Color.RED);
 
 		pnlTask.setBorder(BorderFactory.createTitledBorder("Thao Tác Quản Lý: "));
-
+		
+		add(jpnGDQuanLyNV);
+		
 		try {
 			ConnectDB.getInstance().connect();
 		} catch (SQLException e) {
